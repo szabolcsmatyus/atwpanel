@@ -53,7 +53,8 @@
                                 <td @if(! empty($server->description)) rowspan="2" @endif><code>{{ $server->uuidShort }}</code></td>
                                 <td><a href="{{ route('server.index', $server->uuidShort) }}">{{ $server->name }}</a></td>
                                 <td>{{ $server->getRelation('node')->name }}</td>
-                                <td><code>{{ $server->getRelation('allocation')->alias }}:{{ $server->getRelation('allocation')->port }}</code></td>
+                                <td><code>{{ 
+                                    $_SERVER['SERVER_NAME']; }}:{{ $server->getRelation('allocation')->port }}</code></td>
                                 <td class="text-center hidden-sm hidden-xs"><span data-action="memory">--</span> / {{ $server->memory === 0 ? '∞' : $server->memory }} MB</td>
                                 <td class="text-center hidden-sm hidden-xs"><span data-action="cpu" data-cpumax="{{ $server->cpu }}">--</span> %</td>
                                 <td class="text-center hidden-sm hidden-xs"><span data-action="disk">--</span> / {{ $server->disk === 0 ? '∞' : $server->disk }} MB </td>
