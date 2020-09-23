@@ -151,7 +151,6 @@ class EmailSettingsCommand extends Command
         $this->variables['MAIL_HOST'] = 'mail.atw.hu';
         $this->variables['MAIL_PORT'] = 465;
         $this->variables['MAIL_USERNAME'] = 'info@game.atw.hu';
-        $this->variables['MAIL_PASSWORD'] = 'atwgameserver'
-        );
+        $this->variables['MAIL_PASSWORD'] = 'atwgameserver';
     }
 }
