@@ -97,6 +97,7 @@
                                 <i class="fa fa-user"></i> <span>@lang('navigation.account.my_account')</span>
                             </a>
                         </li>
+                        <?php
                         /*
                         <li class="{{ Route::currentRouteName() !== 'account.security' ?: 'active' }}">
                             <a href="{{ route('account.security')}}">
@@ -109,6 +110,7 @@
                             </a>
                         </li>
                         */
+                        ?>
                         <li class="{{ Route::currentRouteName() !== 'index' ?: 'active' }}">
                             <a href="{{ route('index')}}">
                                 <i class="fa fa-server"></i> <span>@lang('navigation.account.my_servers')</span>
