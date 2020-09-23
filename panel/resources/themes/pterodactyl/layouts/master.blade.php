@@ -97,7 +97,8 @@
                                 <i class="fa fa-user"></i> <span>@lang('navigation.account.my_account')</span>
                             </a>
                         </li>
-                        /*<li class="{{ Route::currentRouteName() !== 'account.security' ?: 'active' }}">
+                        /*
+                        <li class="{{ Route::currentRouteName() !== 'account.security' ?: 'active' }}">
                             <a href="{{ route('account.security')}}">
                                 <i class="fa fa-lock"></i> <span>@lang('navigation.account.security_controls')</span>
                             </a>
