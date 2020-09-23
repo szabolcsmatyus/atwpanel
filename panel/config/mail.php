@@ -55,7 +55,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM', 'jatekszerver@atw.co.hu'),
+        'address' => env('MAIL_FROM', 'info@game.atw.hu'),
         'name' => env('MAIL_FROM_NAME', 'ATW Játék Szerver'),
     ],
 
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME','szabolcs.matyus@atw.co.hu'),
+    'username' => env('MAIL_USERNAME','info@game.atw.hu'),
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD','Informatio1213n/'),
+    'password' => env('MAIL_PASSWORD','atwgameserver'),
 
     /*
     |--------------------------------------------------------------------------
