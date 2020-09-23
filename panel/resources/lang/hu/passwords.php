@@ -11,9 +11,9 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
+    'password' => 'A jelszónak legalább 6 karakter hosszúnak kell lennie és a kettőnek meg kell eggyeznie.',
+    'reset' => 'A jelszavad módosult!',
+    'sent' => 'E-mailben küldtünk egy jelszó visszaállítási linket!',
+    'token' => 'Ez a jelszó visszaállítási link helytelen!',
+    'user' => "Nincs felhasználó ezzel az e-mail címmel.",
 ];
