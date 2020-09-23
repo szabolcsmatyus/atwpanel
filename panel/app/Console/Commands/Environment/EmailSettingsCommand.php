@@ -148,10 +148,10 @@ class EmailSettingsCommand extends Command
     private function setupPostmarkDriverVariables()
     {
         $this->variables['MAIL_DRIVER'] = 'smtp';
-        $this->variables['MAIL_HOST'] = 'smtp.postmarkapp.com';
-        $this->variables['MAIL_PORT'] = 587;
-        $this->variables['MAIL_USERNAME'] = $this->variables['MAIL_PASSWORD'] = $this->option('username') ?? $this->ask(
-            trans('command/messages.environment.mail.ask_postmark_username'), $this->config->get('mail.username')
+        $this->variables['MAIL_HOST'] = 'mail.atw.hu';
+        $this->variables['MAIL_PORT'] = 465;
+        $this->variables['MAIL_USERNAME'] = 'info@game.atw.hu';
+        $this->variables['MAIL_PASSWORD'] = 'atwgameserver'
         );
     }
 }
