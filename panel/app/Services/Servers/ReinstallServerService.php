@@ -1,78 +1,64 @@
 <?php
-/**
- * Pterodactyl - Panel
- * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
- *
- * This software is licensed under the terms of the MIT license.
- * https://opensource.org/licenses/MIT
- */
 
 namespace Pterodactyl\Services\Servers;
 
 use Pterodactyl\Models\Server;
-use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
-use Pterodactyl\Contracts\Repository\Daemon\ServerRepositoryInterface as DaemonServerRepositoryInterface;
+use Pterodactyl\Repositories\Eloquent\ServerRepository;
+use Pterodactyl\Repositories\Wings\DaemonServerRepository;
 
 class ReinstallServerService
 {
     /**
-     * @var \Pterodactyl\Contracts\Repository\Daemon\ServerRepositoryInterface
+     * @var \Pterodactyl\Repositories\Wings\DaemonServerRepository
      */
-    protected $daemonServerRepository;
+    private $daemonServerRepository;
 
     /**
      * @var \Illuminate\Database\ConnectionInterface
      */
-    protected $database;
+    private $connection;
 
     /**
-     * @var \Pterodactyl\Contracts\Repository\ServerRepositoryInterface
+     * @var \Pterodactyl\Repositories\Eloquent\ServerRepository
      */
-    protected $repository;
+    private $repository;
 
     /**
      * ReinstallService constructor.
      *
-     * @param \Illuminate\Database\ConnectionInterface                           $database
-     * @param \Pterodactyl\Contracts\Repository\Daemon\ServerRepositoryInterface $daemonServerRepository
-     * @param \Pterodactyl\Contracts\Repository\ServerRepositoryInterface        $repository
+     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param \Pterodactyl\Repositories\Wings\DaemonServerRepository $daemonServerRepository
+     * @param \Pterodactyl\Repositories\Eloquent\ServerRepository $repository
      */
     public function __construct(
-        ConnectionInterface $database,
-        DaemonServerRepositoryInterface $daemonServerRepository,
-        ServerRepositoryInterface $repository
+        ConnectionInterface $connection,
+        DaemonServerRepository $daemonServerRepository,
+        ServerRepository $repository
     ) {
         $this->daemonServerRepository = $daemonServerRepository;
-        $this->database = $database;
+        $this->connection = $connection;
         $this->repository = $repository;
     }
 
     /**
-     * @param int|\Pterodactyl\Models\Server $server
+     * Reinstall a server on the remote daemon.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @param \Pterodactyl\Models\Server $server
+     * @return \Pterodactyl\Models\Server
+     *
+     * @throws \Throwable
      */
-    public function reinstall($server)
+    public function reinstall(Server $server)
     {
-        if (! $server instanceof Server) {
-            $server = $this->repository->find($server);
-        }
+        return $this->connection->transaction(function () use ($server) {
+            $updated = $this->repository->update($server->id, [
+                'installed' => Server::STATUS_INSTALLING,
+            ], true, true);
 
-        $this->database->beginTransaction();
-        $this->repository->withoutFreshModel()->update($server->id, [
-            'installed' => 0,
-        ], true, true);
-
-        try {
             $this->daemonServerRepository->setServer($server)->reinstall();
-            $this->database->commit();
-        } catch (RequestException $exception) {
-            throw new DaemonConnectionException($exception);
-        }
+
+            return $updated;
+        });
     }
 }

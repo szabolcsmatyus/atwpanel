@@ -38,7 +38,7 @@ return [
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'panel'),
             'username' => env('DB_USERNAME', 'pterodactyl'),
-            'password' => env('DB_PASSWORD', 'atwgameserver'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => env('DB_PREFIX', ''),
@@ -96,6 +96,8 @@ return [
         'client' => 'predis',
 
         'default' => [
+            'scheme' => env('REDIS_SCHEME', 'tcp'),
+            'path' => env('REDIS_PATH', '/run/redis/redis.sock'),
             'host' => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
@@ -103,6 +105,8 @@ return [
         ],
 
         'sessions' => [
+            'scheme' => env('REDIS_SCHEME', 'tcp'),
+            'path' => env('REDIS_PATH', '/run/redis/redis.sock'),
             'host' => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),

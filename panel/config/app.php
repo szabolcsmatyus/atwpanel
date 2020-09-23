@@ -9,7 +9,7 @@ return [
     | change this value if you are not maintaining your own internal versions.
     */
 
-    'version' => '0.7.18',
+    'version' => 'canary',
 
     /*
     |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'ATW Játék Szerver'),
+    'name' => env('APP_NAME', 'Pterodactyl'),
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +73,7 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'GMT+2'),
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'hu'),
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -175,20 +175,18 @@ return [
          */
         Pterodactyl\Providers\AppServiceProvider::class,
         Pterodactyl\Providers\AuthServiceProvider::class,
+        Pterodactyl\Providers\BackupsServiceProvider::class,
         Pterodactyl\Providers\BladeServiceProvider::class,
         Pterodactyl\Providers\EventServiceProvider::class,
         Pterodactyl\Providers\HashidsServiceProvider::class,
         Pterodactyl\Providers\RouteServiceProvider::class,
-        Pterodactyl\Providers\MacroServiceProvider::class,
         Pterodactyl\Providers\RepositoryServiceProvider::class,
         Pterodactyl\Providers\ViewComposerServiceProvider::class,
 
         /*
          * Additional Dependencies
          */
-        Igaster\LaravelTheme\themeServiceProvider::class,
         Prologue\Alerts\AlertsServiceProvider::class,
-        Lord\Laroute\LarouteServiceProvider::class,
     ],
 
     /*
@@ -236,7 +234,7 @@ return [
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
-        'Theme' => Igaster\LaravelTheme\Facades\Theme::class,
+        'Theme' => Pterodactyl\Extensions\Facades\Theme::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,

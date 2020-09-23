@@ -29,8 +29,8 @@ class EggUpdateImporterService
     /**
      * EggUpdateImporterService constructor.
      *
-     * @param \Illuminate\Database\ConnectionInterface                         $connection
-     * @param \Pterodactyl\Contracts\Repository\EggRepositoryInterface         $repository
+     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param \Pterodactyl\Contracts\Repository\EggRepositoryInterface $repository
      * @param \Pterodactyl\Contracts\Repository\EggVariableRepositoryInterface $variableRepository
      */
     public function __construct(
@@ -46,7 +46,7 @@ class EggUpdateImporterService
     /**
      * Update an existing Egg using an uploaded JSON file.
      *
-     * @param int                           $egg
+     * @param int $egg
      * @param \Illuminate\Http\UploadedFile $file
      *
      * @throws \Pterodactyl\Exceptions\Model\DataValidationException
@@ -57,7 +57,16 @@ class EggUpdateImporterService
     public function handle(int $egg, UploadedFile $file)
     {
         if ($file->getError() !== UPLOAD_ERR_OK || ! $file->isFile()) {
-            throw new InvalidFileUploadException(trans('exceptions.nest.importer.file_error'));
+            throw new InvalidFileUploadException(
+                sprintf(
+                    'The selected file ["%s"] was not in a valid format to import. (is_file: %s is_valid: %s err_code: %s err: %s)',
+                    $file->getFilename(),
+                    $file->isFile() ? 'true' : 'false',
+                    $file->isValid() ? 'true' : 'false',
+                    $file->getError(),
+                    $file->getErrorMessage()
+                )
+            );
         }
 
         $parsed = json_decode($file->openFile()->fread($file->getSize()));

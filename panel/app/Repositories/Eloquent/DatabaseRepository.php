@@ -25,7 +25,7 @@ class DatabaseRepository extends EloquentRepository implements DatabaseRepositor
     /**
      * DatabaseRepository constructor.
      *
-     * @param \Illuminate\Foundation\Application   $application
+     * @param \Illuminate\Foundation\Application $application
      * @param \Illuminate\Database\DatabaseManager $database
      */
     public function __construct(Application $application, DatabaseManager $database)
@@ -76,7 +76,7 @@ class DatabaseRepository extends EloquentRepository implements DatabaseRepositor
      */
     public function getDatabasesForServer(int $server): Collection
     {
-        return $this->getBuilder()->where('server_id', $server)->get($this->getColumns());
+        return $this->getBuilder()->with('host')->where('server_id', $server)->get($this->getColumns());
     }
 
     /**
@@ -135,11 +135,16 @@ class DatabaseRepository extends EloquentRepository implements DatabaseRepositor
      * @param string $username
      * @param string $remote
      * @param string $password
+     * @param $max_connections
      * @return bool
      */
-    public function createUser(string $username, string $remote, string $password): bool
+    public function createUser(string $username, string $remote, string $password, $max_connections): bool
     {
-        return $this->run(sprintf('CREATE USER `%s`@`%s` IDENTIFIED BY \'%s\'', $username, $remote, $password));
+        if (! $max_connections) {
+            return $this->run(sprintf('CREATE USER `%s`@`%s` IDENTIFIED BY \'%s\'', $username, $remote, $password));
+        } else {
+            return $this->run(sprintf('CREATE USER `%s`@`%s` IDENTIFIED BY \'%s\' WITH MAX_USER_CONNECTIONS %s', $username, $remote, $password, $max_connections));
+        }
     }
 
     /**

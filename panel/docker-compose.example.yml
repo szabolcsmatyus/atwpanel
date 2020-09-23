@@ -1,7 +1,8 @@
 version: '2'
 services:
   database:
-    image: mariadb
+    image: mariadb:10.4
+    restart: always
     volumes:
       - "/srv/pterodactyl/database:/var/lib/mysql"
     environment:
@@ -14,9 +15,11 @@ services:
 
   cache:
     image: redis:alpine
+    restart: always
 
   panel:
     image: quay.io/pterodactyl/panel:latest
+    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -47,11 +50,11 @@ services:
       - "REDIS_PASSWORD=null"
       - "REDIS_PORT=6379"
       ## Domain settings
-      - "APP_URL=https://game.atw.hu" ## if you are running this behind a reverse proxy with ssl app_url needs to be https still. 
+      - "APP_URL=https://your.domain.here" ## if you are running this behind a reverse proxy with ssl app_url needs to be https still. 
       ## Timezone settings
       - "APP_TIMEZONE=UTC" ## http://php.net/manual/en/timezones.php
       ## Service egg settings
-      - "APP_SERVICE_AUTHOR=info@game.atw.hu" ## this is the email that gets put on eggs you create
+      - "APP_SERVICE_AUTHOR=noreply@your.domain.here" ## this is the email that gets put on eggs you create
       ## Database settings
       ## These can be left alone. Only change if you know what you are doing.
       - "DB_HOST=database" 
@@ -68,7 +71,7 @@ services:
       - "MAIL_PASSWORD=''"
       - "MAIL_ENCRYPTION=true"
       ## certbot settings - Used to automatically generate ssl certs and 
-      - "LE_EMAIL=''" ## leave blank unless you aree generating certs.
+      # - "LE_EMAIL=" ## uncomment if you are using ssl
 
 networks:
   default:
