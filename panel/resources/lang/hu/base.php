@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'validation_error' => 'There was an error with one or more fields in the request.',
+    'validation_error' => 'Hiba történt egy vagy több mező feldolgozásában.',
     'errors' => [
-        'return' => 'Return to Previous Page',
-        'home' => 'Go Home',
+        'return' => 'Előző oldal',
+        'home' => 'Kezdőoldal',
         '403' => [
             'header' => 'Forbidden',
             'desc' => 'You do not have permission to access this resource on this server.',
         ],
         '404' => [
-            'header' => 'File Not Found',
-            'desc' => 'We were unable to locate the requested resource on the server.',
+            'header' => '404',
+            'desc' => 'A keresett oldal nem található!',
         ],
         'installing' => [
             'header' => 'Server Installing',
@@ -28,9 +28,9 @@ return [
         ],
     ],
     'index' => [
-        'header' => 'Your Servers',
-        'header_sub' => 'Servers you have access to.',
-        'list' => 'Server List',
+        'header' => 'Szervereid',
+        'header_sub' => 'Szerverek amiket te kezelsz.',
+        'list' => 'Szerverek',
     ],
     'api' => [
         'index' => [
@@ -55,21 +55,21 @@ return [
         ],
     ],
     'account' => [
-        'details_updated' => 'Your account details have been successfully updated.',
-        'invalid_password' => 'The password provided for your account was not valid.',
-        'header' => 'Your Account',
-        'header_sub' => 'Manage your account details.',
-        'update_pass' => 'Update Password',
-        'update_email' => 'Update Email Address',
-        'current_password' => 'Current Password',
-        'new_password' => 'New Password',
-        'new_password_again' => 'Repeat New Password',
-        'new_email' => 'New Email Address',
-        'first_name' => 'First Name',
-        'last_name' => 'Last Name',
-        'update_identity' => 'Update Identity',
-        'username_help' => 'Your username must be unique to your account, and may only contain the following characters: :requirements.',
-        'language' => 'Language',
+        'details_updated' => 'Adataid módosítása sikeresen megtörtént.',
+        'invalid_password' => 'A jelszó amit megadtál helytelen.',
+        'header' => 'Fiók',
+        'header_sub' => 'Fiók adatai',
+        'update_pass' => 'Jelszó módosítása',
+        'update_email' => 'E-mail módosítása',
+        'current_password' => 'Aktuális jelszó',
+        'new_password' => 'Új jelszó',
+        'new_password_again' => 'Új jelszó megerőssítése',
+        'new_email' => 'Új e-mail cím',
+        'first_name' => 'Keresztnév',
+        'last_name' => 'Vezetéknév',
+        'update_identity' => 'Adatok frissítése',
+        'username_help' => 'Felhasználónevednek egyedinek kell lenni ami csak ezeket a karaktereket tartalmazhatja: :requirements.',
+        'language' => 'Nyelv',
     ],
     'security' => [
         'session_mgmt_disabled' => 'Your host has not enabled the ability to manage account sessions via this interface.',

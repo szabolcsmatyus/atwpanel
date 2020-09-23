@@ -97,7 +97,7 @@
                                 <i class="fa fa-user"></i> <span>@lang('navigation.account.my_account')</span>
                             </a>
                         </li>
-                        <li class="{{ Route::currentRouteName() !== 'account.security' ?: 'active' }}">
+                        /*<li class="{{ Route::currentRouteName() !== 'account.security' ?: 'active' }}">
                             <a href="{{ route('account.security')}}">
                                 <i class="fa fa-lock"></i> <span>@lang('navigation.account.security_controls')</span>
                             </a>
@@ -107,6 +107,7 @@
                                 <i class="fa fa-code"></i> <span>@lang('navigation.account.api_access')</span>
                             </a>
                         </li>
+                        */
                         <li class="{{ Route::currentRouteName() !== 'index' ?: 'active' }}">
                             <a href="{{ route('index')}}">
                                 <i class="fa fa-server"></i> <span>@lang('navigation.account.my_servers')</span>
@@ -246,7 +247,7 @@
                     <strong><i class="fa fa-fw {{ $appIsGit ? 'fa-git-square' : 'fa-code-fork' }}"></i></strong> {{ $appVersion }}<br />
                     <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s
                 </div>
-                Copyright &copy; 2015 - {{ date('Y') }} <a href="https://pterodactyl.io/">Pterodactyl Software</a>.
+                Minden jog fenntartva. &copy; 2003 - {{ date('Y') }} <a href="https://atw.hu/">ATW Internet Kft.</a> <a href="https://pterodactyl.io/">Pterodactyl Software</a> által.
             </footer>
             @if(isset($sidebarServerList))
                 <aside class="control-sidebar control-sidebar-dark">
