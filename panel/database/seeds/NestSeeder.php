@@ -45,6 +45,7 @@ class NestSeeder extends Seeder
         $this->createSourceEngineNest(array_get($items, 'Source Engine'));
         $this->createVoiceServersNest(array_get($items, 'Voice Servers'));
         $this->createRustNest(array_get($items, 'Rust'));
+        $this->createTerrariaNest(array_get($items, 'Terraria'));
     }
 
     /**
@@ -112,6 +113,22 @@ class NestSeeder extends Seeder
                 'name' => 'Rust',
                 'description' => 'Rust - A game where you must fight to survive.',
             ], 'support@pterodactyl.io');
+        }
+    }
+    /**
+     * Create the Terraria nest to be used later on.
+     *
+     * @param array|null $nest
+     *
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     */
+    private function createTerrariaNest(array $nest = null)
+    {
+        if (is_null($nest)) {
+            $this->creationService->handle([
+                'name' => 'Terraria',
+                'description' => 'Terraria ',
+            ], 'info@game.atw.hu');
         }
     }
 }

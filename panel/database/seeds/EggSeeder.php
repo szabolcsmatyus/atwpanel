@@ -83,6 +83,7 @@ class EggSeeder extends Seeder
             'Source Engine',
             'Voice Servers',
             'Rust',
+            'Terraria'
         ]);
     }
 
