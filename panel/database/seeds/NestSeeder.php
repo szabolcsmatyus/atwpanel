@@ -45,23 +45,6 @@ class NestSeeder extends Seeder
         $this->createSourceEngineNest(array_get($items, 'Source Engine'));
         $this->createVoiceServersNest(array_get($items, 'Voice Servers'));
         $this->createRustNest(array_get($items, 'Rust'));
-        $this->createFaszomNest(array_get($items, 'Faszom'));
-    }
-    /**
-     * Create the Minecraft nest to be used later on.
-     *
-     * @param array|null $nest
-     *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     */
-    private function createFaszomNest(array $nest = null)
-    {
-        if (is_null($nest)) {
-            $this->creationService->handle([
-                'name' => 'Faszom',
-                'description' => 'Teszt',
-            ], 'support@pterodactyl.io');
-        }
     }
     /**
      * Create the Minecraft nest to be used later on.
