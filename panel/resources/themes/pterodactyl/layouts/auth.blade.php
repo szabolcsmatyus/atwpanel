@@ -41,14 +41,11 @@
                 </div>
                 @yield('content')
                 <p class="small login-copyright text-center">
-                    Minden jog fenntartva. © 2003-{{ date('Y') }} <a href="https://atw.hu/" target="_blank">ATW Internet Kft.</a>.<br />
+                    Minden jog fenntartva. © 2003-{{ date('Y') }} <a href="https://atw.hu/" target="_blank">ATW Internet Kft.</a><br />
                 </p>
             </div>
         </div>
-        <div class="login-corner-info small">
-            <strong><i class="fa fa-fw {{ $appIsGit ? 'fa-git-square' : 'fa-code-fork' }}"></i></strong> {{ $appVersion }}<br />
-            <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s
-        </div>
+        
 
         {!! Theme::js('vendor/jquery/jquery.min.js?t={cache-version}') !!}
         {!! Theme::js('vendor/bootstrap/bootstrap.min.js?t={cache-version}') !!}
