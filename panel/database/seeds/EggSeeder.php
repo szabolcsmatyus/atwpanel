@@ -83,7 +83,8 @@ class EggSeeder extends Seeder
             'Source Engine',
             'Voice Servers',
             'Rust',
-            'GTA'
+            'GTA',
+            'Faszom'
         ]);
     }
 
