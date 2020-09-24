@@ -42,9 +42,9 @@ class NestSeeder extends Seeder
         ])->keyBy('name')->toArray();
 
         $this->createMinecraftNest(array_get($items, 'Minecraft'));
-        $this->createSourceEngineNest(array_get($items, 'Source Engine'));
+        $this->createGamesNest(/*array_get($items, 'Games')*/);
         $this->createVoiceServersNest(array_get($items, 'Voice Servers'));
-        $this->createRustNest(array_get($items, 'Rust'));
+        $this->createTerrariaNest(/*array_get($items, 'Terraria')*/);
         $this->createGTANest(array_get($items, 'GTA'));
     }
     /**
@@ -87,12 +87,12 @@ class NestSeeder extends Seeder
      *
      * @throws \Pterodactyl\Exceptions\Model\DataValidationException
      */
-    private function createSourceEngineNest(array $nest = null)
+    private function createGamesNest(array $nest = null)
     {
         if (is_null($nest)) {
             $this->creationService->handle([
-                'name' => 'Source Engine',
-                'description' => 'Includes support for most Source Dedicated Server games.',
+                'name' => 'Games',
+                'description' => 'Games',
             ], 'support@pterodactyl.io');
         }
     }
@@ -121,12 +121,12 @@ class NestSeeder extends Seeder
      *
      * @throws \Pterodactyl\Exceptions\Model\DataValidationException
      */
-    private function createRustNest(array $nest = null)
+    private function createTerrariaNest(array $nest = null)
     {
         if (is_null($nest)) {
             $this->creationService->handle([
-                'name' => 'Rust',
-                'description' => 'Rust - A game where you must fight to survive.',
+                'name' => 'Terraria',
+                'description' => 'Terraria',
             ], 'support@pterodactyl.io');
         }
     }
