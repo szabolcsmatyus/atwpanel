@@ -1,13 +1,21 @@
 <?php
+/**
+ * Pterodactyl - Panel
+ * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
+ *
+ * This software is licensed under the terms of the MIT license.
+ * https://opensource.org/licenses/MIT
+ */
 
 namespace Pterodactyl\Services\Servers;
 
-use Psr\Log\LoggerInterface;
-use Webmozart\Assert\Assert;
 use Pterodactyl\Models\Server;
+use Psr\Log\LoggerInterface as Writer;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
+use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
+use Pterodactyl\Contracts\Repository\Daemon\ServerRepositoryInterface as DaemonServerRepositoryInterface;
 
 class SuspensionService
 {
@@ -15,70 +23,93 @@ class SuspensionService
     const ACTION_UNSUSPEND = 'unsuspend';
 
     /**
+     * @var \Pterodactyl\Contracts\Repository\Daemon\ServerRepositoryInterface
+     */
+    protected $daemonServerRepository;
+
+    /**
      * @var \Illuminate\Database\ConnectionInterface
      */
-    private $connection;
+    protected $database;
 
     /**
      * @var \Pterodactyl\Contracts\Repository\ServerRepositoryInterface
      */
-    private $repository;
+    protected $repository;
 
     /**
      * @var \Psr\Log\LoggerInterface
      */
-    private $writer;
-
-    /**
-     * @var \Pterodactyl\Repositories\Wings\DaemonServerRepository
-     */
-    private $daemonServerRepository;
+    protected $writer;
 
     /**
      * SuspensionService constructor.
      *
-     * @param \Illuminate\Database\ConnectionInterface $connection
-     * @param \Pterodactyl\Repositories\Wings\DaemonServerRepository $daemonServerRepository
-     * @param \Pterodactyl\Contracts\Repository\ServerRepositoryInterface $repository
-     * @param \Psr\Log\LoggerInterface $writer
+     * @param \Illuminate\Database\ConnectionInterface                           $database
+     * @param \Pterodactyl\Contracts\Repository\Daemon\ServerRepositoryInterface $daemonServerRepository
+     * @param \Pterodactyl\Contracts\Repository\ServerRepositoryInterface        $repository
+     * @param \Psr\Log\LoggerInterface                                           $writer
      */
     public function __construct(
-        ConnectionInterface $connection,
-        DaemonServerRepository $daemonServerRepository,
+        ConnectionInterface $database,
+        DaemonServerRepositoryInterface $daemonServerRepository,
         ServerRepositoryInterface $repository,
-        LoggerInterface $writer
+        Writer $writer
     ) {
-        $this->connection = $connection;
+        $this->daemonServerRepository = $daemonServerRepository;
+        $this->database = $database;
         $this->repository = $repository;
         $this->writer = $writer;
-        $this->daemonServerRepository = $daemonServerRepository;
     }
 
     /**
      * Suspends a server on the system.
      *
      * @param int|\Pterodactyl\Models\Server $server
-     * @param string $action
+     * @param string                         $action
+     * @return bool
      *
-     * @throws \Throwable
+     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
-    public function toggle(Server $server, $action = self::ACTION_SUSPEND)
+    public function toggle($server, $action = self::ACTION_SUSPEND)
     {
-        Assert::oneOf($action, [self::ACTION_SUSPEND, self::ACTION_UNSUSPEND]);
+        if (! $server instanceof Server) {
+            $server = $this->repository->find($server);
+        }
+
+        if (! in_array($action, [self::ACTION_SUSPEND, self::ACTION_UNSUSPEND])) {
+            throw new \InvalidArgumentException(sprintf(
+                'Action must be either ' . self::ACTION_SUSPEND . ' or ' . self::ACTION_UNSUSPEND . ', %s passed.',
+                $action
+            ));
+        }
 
         if (
             $action === self::ACTION_SUSPEND && $server->suspended ||
             $action === self::ACTION_UNSUSPEND && ! $server->suspended
         ) {
-            return;
+            return true;
         }
 
-        $this->connection->transaction(function () use ($action, $server) {
-            $this->repository->withoutFreshModel()->update($server->id, [
-                'suspended' => $action === self::ACTION_SUSPEND,
-            ]);
+        $this->database->beginTransaction();
+        $this->repository->withoutFreshModel()->update($server->id, [
+            'suspended' => $action === self::ACTION_SUSPEND,
+        ]);
 
-            $this->daemonServerRepository->setServer($server)->suspend($action === self::ACTION_UNSUSPEND);
-        });
+        try {
+            $this->daemonServerRepository->setServer($server)->$action();
+            $this->database->commit();
+
+            return true;
+        } catch (RequestException $exception) {
+            $response = $exception->getResponse();
+            $this->writer->warning($exception);
+
+            throw new DisplayException(trans('admin/server.exceptions.daemon_exception', [
+                'code' => is_null($response) ? 'E_CONN_REFUSED' : $response->getStatusCode(),
+            ]));
+        }
     }
 }

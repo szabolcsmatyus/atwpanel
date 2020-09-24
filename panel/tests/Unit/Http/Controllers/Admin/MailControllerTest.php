@@ -40,7 +40,7 @@ class MailControllerTest extends ControllerTestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 

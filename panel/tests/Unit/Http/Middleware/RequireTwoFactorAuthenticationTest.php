@@ -18,7 +18,7 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -88,7 +88,7 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
 
         $response = $this->getMiddleware()->handle($this->request, $this->getClosureAssertions());
         $this->assertInstanceOf(RedirectResponse::class, $response);
-        $this->assertEquals(route('account'), $response->getTargetUrl());
+        $this->assertEquals(route('account.security'), $response->getTargetUrl());
     }
 
     /**
@@ -132,7 +132,7 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
 
         $response = $this->getMiddleware()->handle($this->request, $this->getClosureAssertions());
         $this->assertInstanceOf(RedirectResponse::class, $response);
-        $this->assertEquals(route('account'), $response->getTargetUrl());
+        $this->assertEquals(route('account.security'), $response->getTargetUrl());
     }
 
     /**
@@ -156,8 +156,7 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
     public function ignoredRoutesDataProvider()
     {
         return [
-            ['auth'],
-            ['account'],
+            ['account.security'],
             ['account.security.revoke'],
             ['account.security.totp'],
             ['account.security.totp.set'],

@@ -25,7 +25,7 @@ class LocationTransformer extends BaseTransformer
     }
 
     /**
-     * Return a generic transformed location array.
+     * Return a generic transformed pack array.
      *
      * @param \Pterodactyl\Models\Location $location
      * @return array

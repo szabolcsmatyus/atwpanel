@@ -5,7 +5,6 @@ namespace Pterodactyl\Http\Controllers\Api\Application\Users;
 use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Spatie\QueryBuilder\QueryBuilder;
 use Pterodactyl\Services\Users\UserUpdateService;
 use Pterodactyl\Services\Users\UserCreationService;
 use Pterodactyl\Services\Users\UserDeletionService;
@@ -43,9 +42,9 @@ class UserController extends ApplicationApiController
      * UserController constructor.
      *
      * @param \Pterodactyl\Contracts\Repository\UserRepositoryInterface $repository
-     * @param \Pterodactyl\Services\Users\UserCreationService $creationService
-     * @param \Pterodactyl\Services\Users\UserDeletionService $deletionService
-     * @param \Pterodactyl\Services\Users\UserUpdateService $updateService
+     * @param \Pterodactyl\Services\Users\UserCreationService           $creationService
+     * @param \Pterodactyl\Services\Users\UserDeletionService           $deletionService
+     * @param \Pterodactyl\Services\Users\UserUpdateService             $updateService
      */
     public function __construct(
         UserRepositoryInterface $repository,
@@ -71,10 +70,7 @@ class UserController extends ApplicationApiController
      */
     public function index(GetUsersRequest $request): array
     {
-        $users = QueryBuilder::for(User::query())
-            ->allowedFilters(['email', 'uuid', 'username', 'external_id'])
-            ->allowedSorts(['id', 'uuid'])
-            ->paginate(100);
+        $users = $this->repository->setSearchTerm($request->input('search'))->paginated(50);
 
         return $this->fractal->collection($users)
             ->transformWith($this->getTransformer(UserTransformer::class))
@@ -86,12 +82,11 @@ class UserController extends ApplicationApiController
      * were defined in the request.
      *
      * @param \Pterodactyl\Http\Requests\Api\Application\Users\GetUsersRequest $request
-     * @param \Pterodactyl\Models\User $user
      * @return array
      */
-    public function view(GetUsersRequest $request, User $user): array
+    public function view(GetUsersRequest $request): array
     {
-        return $this->fractal->item($user)
+        return $this->fractal->item($request->getModel(User::class))
             ->transformWith($this->getTransformer(UserTransformer::class))
             ->toArray();
     }
@@ -105,19 +100,38 @@ class UserController extends ApplicationApiController
      * meta. If there are no errors this is an empty array.
      *
      * @param \Pterodactyl\Http\Requests\Api\Application\Users\UpdateUserRequest $request
-     * @param \Pterodactyl\Models\User $user
      * @return array
      *
      * @throws \Pterodactyl\Exceptions\Model\DataValidationException
      * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
      */
-    public function update(UpdateUserRequest $request, User $user): array
+    public function update(UpdateUserRequest $request): array
     {
         $this->updateService->setUserLevel(User::USER_LEVEL_ADMIN);
-        $user = $this->updateService->handle($user, $request->validated());
+        $collection = $this->updateService->handle($request->getModel(User::class), $request->validated());
 
-        $response = $this->fractal->item($user)
+        $errors = [];
+        if (! empty($collection->get('exceptions'))) {
+            foreach ($collection->get('exceptions') as $node => $exception) {
+                /** @var \GuzzleHttp\Exception\RequestException $exception */
+                /** @var \GuzzleHttp\Psr7\Response|null $response */
+                $response = method_exists($exception, 'getResponse') ? $exception->getResponse() : null;
+                $message = trans('admin/server.exceptions.daemon_exception', [
+                    'code' => is_null($response) ? 'E_CONN_REFUSED' : $response->getStatusCode(),
+                ]);
+
+                $errors[] = ['message' => $message, 'node' => $node];
+            }
+        }
+
+        $response = $this->fractal->item($collection->get('model'))
             ->transformWith($this->getTransformer(UserTransformer::class));
+
+        if (count($errors) > 0) {
+            $response->addMeta([
+                'revocation_errors' => $errors,
+            ]);
+        }
 
         return $response->toArray();
     }
@@ -151,15 +165,14 @@ class UserController extends ApplicationApiController
      * on successful deletion.
      *
      * @param \Pterodactyl\Http\Requests\Api\Application\Users\DeleteUserRequest $request
-     * @param \Pterodactyl\Models\User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      *
      * @throws \Pterodactyl\Exceptions\DisplayException
      */
-    public function delete(DeleteUserRequest $request, User $user): JsonResponse
+    public function delete(DeleteUserRequest $request): Response
     {
-        $this->deletionService->handle($user);
+        $this->deletionService->handle($request->getModel(User::class));
 
-        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+        return response('', 204);
     }
 }

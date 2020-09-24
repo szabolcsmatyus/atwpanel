@@ -38,7 +38,7 @@ class LocationControllerTest extends ApplicationApiIntegrationTestCase
                     'pagination' => [
                         'total' => 2,
                         'count' => 2,
-                        'per_page' => 100,
+                        'per_page' => 50,
                         'current_page' => 1,
                         'total_pages' => 1,
                     ],

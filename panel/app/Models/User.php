@@ -2,57 +2,41 @@
 
 namespace Pterodactyl\Models;
 
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Validable;
 use Pterodactyl\Rules\Username;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Builder;
+use Sofa\Eloquence\Contracts\CleansAttributes;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Pterodactyl\Traits\Helpers\AvailableLanguages;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Pterodactyl\Notifications\SendPasswordReset as ResetPasswordNotification;
 
-/**
- * @property int $id
- * @property string|null $external_id
- * @property string $uuid
- * @property string $username
- * @property string $email
- * @property string|null $name_first
- * @property string|null $name_last
- * @property string $password
- * @property string|null $remeber_token
- * @property string $language
- * @property bool $root_admin
- * @property bool $use_totp
- * @property string|null $totp_secret
- * @property \Carbon\Carbon|null $totp_authenticated_at
- * @property bool $gravatar
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
- * @property string $name
- * @property \Pterodactyl\Models\ApiKey[]|\Illuminate\Database\Eloquent\Collection $apiKeys
- * @property \Pterodactyl\Models\Server[]|\Illuminate\Database\Eloquent\Collection $servers
- * @property \Pterodactyl\Models\RecoveryToken[]|\Illuminate\Database\Eloquent\Collection $recoveryTokens
- */
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
-    CanResetPasswordContract
+    CanResetPasswordContract,
+    CleansAttributes,
+    ValidableContract
 {
-    use Authenticatable;
-    use Authorizable;
-    use AvailableLanguages;
-    use CanResetPassword;
-    use Notifiable;
+    use Authenticatable, Authorizable, AvailableLanguages, CanResetPassword, Eloquence, Notifiable, Validable {
+        gatherRules as eloquenceGatherRules;
+    }
 
     const USER_LEVEL_USER = 0;
     const USER_LEVEL_ADMIN = 1;
+
+    const FILTER_LEVEL_ALL = 0;
+    const FILTER_LEVEL_OWNER = 1;
+    const FILTER_LEVEL_ADMIN = 2;
+    const FILTER_LEVEL_SUBUSER = 3;
 
     /**
      * The resource name for this model when it is transformed into an
@@ -108,7 +92,7 @@ class User extends Model implements
     /**
      * @var array
      */
-    protected $dates = ['totp_authenticated_at'];
+    protected $dates = [self::CREATED_AT, self::UPDATED_AT, 'totp_authenticated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -116,6 +100,20 @@ class User extends Model implements
      * @var array
      */
     protected $hidden = ['password', 'remember_token', 'totp_secret', 'totp_authenticated_at'];
+
+    /**
+     * Parameters for search querying.
+     *
+     * @var array
+     */
+    protected $searchableColumns = [
+        'username' => 100,
+        'email' => 100,
+        'external_id' => 80,
+        'uuid' => 80,
+        'name_first' => 40,
+        'name_last' => 40,
+    ];
 
     /**
      * Default values for specific fields in the database.
@@ -131,18 +129,35 @@ class User extends Model implements
     ];
 
     /**
+     * Rules verifying that the data passed in forms is valid and meets application logic rules.
+     *
+     * @var array
+     */
+    protected static $applicationRules = [
+        'uuid' => 'required',
+        'email' => 'required',
+        'external_id' => 'sometimes',
+        'username' => 'required',
+        'name_first' => 'required',
+        'name_last' => 'required',
+        'password' => 'sometimes',
+        'language' => 'sometimes',
+        'use_totp' => 'sometimes',
+    ];
+
+    /**
      * Rules verifying that the data being stored matches the expectations of the database.
      *
      * @var array
      */
-    public static $validationRules = [
-        'uuid' => 'required|string|size:36|unique:users,uuid',
-        'email' => 'required|email|unique:users,email',
-        'external_id' => 'sometimes|nullable|string|max:255|unique:users,external_id',
-        'username' => 'required|between:1,255|unique:users,username',
-        'name_first' => 'required|string|between:1,255',
-        'name_last' => 'required|string|between:1,255',
-        'password' => 'sometimes|nullable|string',
+    protected static $dataIntegrityRules = [
+        'uuid' => 'string|size:36|unique:users,uuid',
+        'email' => 'email|unique:users,email',
+        'external_id' => 'nullable|string|max:255|unique:users,external_id',
+        'username' => 'between:1,255|unique:users,username',
+        'name_first' => 'string|between:1,255',
+        'name_last' => 'string|between:1,255',
+        'password' => 'nullable|string',
         'root_admin' => 'boolean',
         'language' => 'string',
         'use_totp' => 'boolean',
@@ -153,24 +168,13 @@ class User extends Model implements
      * Implement language verification by overriding Eloquence's gather
      * rules function.
      */
-    public static function getRules()
+    protected static function gatherRules()
     {
-        $rules = parent::getRules();
-
+        $rules = self::eloquenceGatherRules();
         $rules['language'][] = new In(array_keys((new self)->getAvailableLanguages()));
         $rules['username'][] = new Username;
 
         return $rules;
-    }
-
-    /**
-     * Return the user model in a format that can be passed over to Vue templates.
-     *
-     * @return array
-     */
-    public function toVueObject(): array
-    {
-        return (new Collection($this->toArray()))->except(['id', 'external_id'])->toArray();
     }
 
     /**
@@ -200,7 +204,17 @@ class User extends Model implements
      */
     public function getNameAttribute()
     {
-        return trim($this->name_first . ' ' . $this->name_last);
+        return $this->name_first . ' ' . $this->name_last;
+    }
+
+    /**
+     * Returns all permissions that a user has.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function permissions()
+    {
+        return $this->hasManyThrough(Permission::class, Subuser::class);
     }
 
     /**
@@ -214,36 +228,22 @@ class User extends Model implements
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function apiKeys()
-    {
-        return $this->hasMany(ApiKey::class)
-            ->where('key_type', ApiKey::TYPE_ACCOUNT);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function recoveryTokens()
-    {
-        return $this->hasMany(RecoveryToken::class);
-    }
-
-    /**
-     * Returns all of the servers that a user can access by way of being the owner of the
-     * server, or because they are assigned as a subuser for that server.
+     * Return all servers that user is listed as a subuser of directly.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accessibleServers()
+    public function subuserOf()
     {
-        return Server::query()
-            ->select('servers.*')
-            ->leftJoin('subusers', 'subusers.server_id', '=', 'servers.id')
-            ->where(function (Builder $builder) {
-                $builder->where('servers.owner_id', $this->id)->orWhere('subusers.user_id', $this->id);
-            })
-            ->groupBy('servers.id');
+        return $this->hasMany(Subuser::class);
+    }
+
+    /**
+     * Return all of the daemon keys that a user belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function keys()
+    {
+        return $this->hasMany(DaemonKey::class);
     }
 }

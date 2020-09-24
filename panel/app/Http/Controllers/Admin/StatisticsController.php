@@ -9,7 +9,6 @@ use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
 use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
 use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
 use Pterodactyl\Contracts\Repository\DatabaseRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Pterodactyl\Contracts\Repository\AllocationRepositoryInterface;
 
 class StatisticsController extends Controller
@@ -46,7 +45,6 @@ class StatisticsController extends Controller
 
     public function index()
     {
-        throw new NotFoundHttpException;
         $servers = $this->serverRepository->all();
         $nodes = $this->nodeRepository->all();
         $usersCount = $this->userRepository->count();
@@ -69,7 +67,7 @@ class StatisticsController extends Controller
 
         $tokens = [];
         foreach ($nodes as $node) {
-            $tokens[$node->id] = decrypt($node->daemon_token);
+            $tokens[$node->id] = $node->daemonSecret;
         }
 
         $this->injectJavascript([

@@ -33,13 +33,32 @@ trait JavascriptInjection
     }
 
     /**
-     * Injects the exact array passed in, nothing more.
+     * Injects server javascript into the page to be used by other services.
      *
      * @param array $args
+     * @param bool  $overwrite
      * @return array
      */
-    public function plainInject($args = [])
+    public function injectJavascript($args = [], $overwrite = false)
     {
-        return Javascript::put($args);
+        $request = $this->request ?? app()->make(Request::class);
+        $server = $request->attributes->get('server');
+        $token = $request->attributes->get('server_token');
+
+        $response = array_merge_recursive([
+            'server' => [
+                'uuid' => $server->uuid,
+                'uuidShort' => $server->uuidShort,
+                'daemonSecret' => $token,
+            ],
+            'server_token' => $token,
+            'node' => [
+                'fqdn' => $server->node->fqdn,
+                'scheme' => $server->node->scheme,
+                'daemonListen' => $server->node->daemonListen,
+            ],
+        ], $args);
+
+        return Javascript::put($overwrite ? $args : $response);
     }
 }

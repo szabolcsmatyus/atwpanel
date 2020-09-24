@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Services\Eggs\Variables;
 
-use Illuminate\Support\Str;
 use Pterodactyl\Models\EggVariable;
 use Illuminate\Contracts\Validation\Factory;
 use Pterodactyl\Exceptions\DisplayException;
@@ -28,7 +27,7 @@ class VariableUpdateService
      * VariableUpdateService constructor.
      *
      * @param \Pterodactyl\Contracts\Repository\EggVariableRepositoryInterface $repository
-     * @param \Illuminate\Contracts\Validation\Factory $validator
+     * @param \Illuminate\Contracts\Validation\Factory                         $validator
      */
     public function __construct(EggVariableRepositoryInterface $repository, Factory $validator)
     {
@@ -51,7 +50,7 @@ class VariableUpdateService
      * Update a specific egg variable.
      *
      * @param \Pterodactyl\Models\EggVariable $variable
-     * @param array $data
+     * @param array                           $data
      * @return mixed
      *
      * @throws \Pterodactyl\Exceptions\DisplayException
@@ -82,11 +81,7 @@ class VariableUpdateService
         }
 
         if (! empty($data['rules'] ?? '')) {
-            $this->validateRules(
-                (is_string($data['rules']) && Str::contains($data['rules'], ';;'))
-                    ? explode(';;', $data['rules'])
-                    : $data['rules']
-            );
+            $this->validateRules($data['rules']);
         }
 
         $options = array_get($data, 'options') ?? [];

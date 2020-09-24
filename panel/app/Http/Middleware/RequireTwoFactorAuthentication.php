@@ -10,7 +10,6 @@
 namespace Pterodactyl\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Prologue\Alerts\AlertsMessageBag;
 
@@ -26,11 +25,26 @@ class RequireTwoFactorAuthentication
     private $alert;
 
     /**
+     * The names of routes that should be accessible without 2FA enabled.
+     *
+     * @var array
+     */
+    protected $except = [
+        'account.security',
+        'account.security.revoke',
+        'account.security.totp',
+        'account.security.totp.set',
+        'account.security.totp.disable',
+        'auth.totp',
+        'auth.logout',
+    ];
+
+    /**
      * The route to redirect a user to to enable 2FA.
      *
      * @var string
      */
-    protected $redirectRoute = 'account';
+    protected $redirectRoute = 'account.security';
 
     /**
      * RequireTwoFactorAuthentication constructor.
@@ -46,7 +60,7 @@ class RequireTwoFactorAuthentication
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -55,8 +69,7 @@ class RequireTwoFactorAuthentication
             return $next($request);
         }
 
-        $current = $request->route()->getName();
-        if (in_array($current, ['auth', 'account']) || Str::startsWith($current, ['auth.', 'account.'])) {
+        if (in_array($request->route()->getName(), $this->except)) {
             return $next($request);
         }
 

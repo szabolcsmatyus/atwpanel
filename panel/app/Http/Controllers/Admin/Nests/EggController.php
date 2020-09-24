@@ -25,15 +25,10 @@ use Pterodactyl\Contracts\Repository\NestRepositoryInterface;
 class EggController extends Controller
 {
     protected $alert;
-
     protected $creationService;
-
     protected $deletionService;
-
     protected $nestRepository;
-
     protected $repository;
-
     protected $updateService;
 
     public function __construct(
@@ -99,7 +94,7 @@ class EggController extends Controller
      * Handle request to update an Egg.
      *
      * @param \Pterodactyl\Http\Requests\Admin\Egg\EggFormRequest $request
-     * @param \Pterodactyl\Models\Egg $egg
+     * @param \Pterodactyl\Models\Egg                             $egg
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Pterodactyl\Exceptions\Model\DataValidationException

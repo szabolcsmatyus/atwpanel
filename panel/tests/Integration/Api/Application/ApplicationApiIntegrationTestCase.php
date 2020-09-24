@@ -31,7 +31,7 @@ abstract class ApplicationApiIntegrationTestCase extends IntegrationTestCase
      * Bootstrap application API tests. Creates a default admin user and associated API key
      * and also sets some default headers required for accessing the API.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -118,6 +118,7 @@ abstract class ApplicationApiIntegrationTestCase extends IntegrationTestCase
             'r_eggs' => AdminAcl::READ | AdminAcl::WRITE,
             'r_database_hosts' => AdminAcl::READ | AdminAcl::WRITE,
             'r_server_databases' => AdminAcl::READ | AdminAcl::WRITE,
+            'r_packs' => AdminAcl::READ | AdminAcl::WRITE,
         ], $permissions));
     }
 

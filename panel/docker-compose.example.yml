@@ -1,8 +1,7 @@
 version: '2'
 services:
   database:
-    image: mariadb:10.4
-    restart: always
+    image: mariadb
     volumes:
       - "/srv/pterodactyl/database:/var/lib/mysql"
     environment:
@@ -15,11 +14,9 @@ services:
 
   cache:
     image: redis:alpine
-    restart: always
 
   panel:
     image: quay.io/pterodactyl/panel:latest
-    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -71,7 +68,7 @@ services:
       - "MAIL_PASSWORD=''"
       - "MAIL_ENCRYPTION=true"
       ## certbot settings - Used to automatically generate ssl certs and 
-      # - "LE_EMAIL=" ## uncomment if you are using ssl
+      - "LE_EMAIL=''" ## leave blank unless you aree generating certs.
 
 networks:
   default:

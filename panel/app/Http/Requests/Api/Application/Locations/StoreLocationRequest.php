@@ -25,7 +25,7 @@ class StoreLocationRequest extends ApplicationApiRequest
      */
     public function rules(): array
     {
-        return collect(Location::getRules())->only([
+        return collect(Location::getCreateRules())->only([
             'long',
             'short',
         ])->toArray();

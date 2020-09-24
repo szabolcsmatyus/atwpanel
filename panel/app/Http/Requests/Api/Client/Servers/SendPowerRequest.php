@@ -2,7 +2,7 @@
 
 namespace Pterodactyl\Http\Requests\Api\Client\Servers;
 
-use Pterodactyl\Models\Permission;
+use Pterodactyl\Models\Server;
 use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
 
 class SendPowerRequest extends ClientApiRequest
@@ -10,21 +10,11 @@ class SendPowerRequest extends ClientApiRequest
     /**
      * Determine if the user has permission to send a power command to a server.
      *
-     * @return string
+     * @return bool
      */
-    public function permission(): string
+    public function authorize(): bool
     {
-        switch ($this->input('signal')) {
-            case 'start':
-                return Permission::ACTION_CONTROL_START;
-            case 'stop':
-            case 'kill':
-                return Permission::ACTION_CONTROL_STOP;
-            case 'restart':
-                return Permission::ACTION_CONTROL_RESTART;
-        }
-
-        return '__invalid';
+        return $this->user()->can('power-' . $this->input('signal', '_undefined'), $this->getModel(Server::class));
     }
 
     /**

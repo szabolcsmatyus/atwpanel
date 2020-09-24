@@ -9,7 +9,7 @@ use Pterodactyl\Models\Server;
 use Illuminate\Support\Collection;
 use Pterodactyl\Models\Allocation;
 use Pterodactyl\Models\EggVariable;
-use Pterodactyl\Services\Servers\StartupCommandService;
+use Pterodactyl\Services\Servers\StartupCommandViewService;
 use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
 
 class StartupCommandViewServiceTest extends TestCase
@@ -22,7 +22,7 @@ class StartupCommandViewServiceTest extends TestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -76,10 +76,10 @@ class StartupCommandViewServiceTest extends TestCase
     /**
      * Return an instance of the service with mocked dependencies.
      *
-     * @return \Pterodactyl\Services\Servers\StartupCommandService
+     * @return \Pterodactyl\Services\Servers\StartupCommandViewService
      */
-    private function getService(): StartupCommandService
+    private function getService(): StartupCommandViewService
     {
-        return new StartupCommandService($this->repository);
+        return new StartupCommandViewService($this->repository);
     }
 }

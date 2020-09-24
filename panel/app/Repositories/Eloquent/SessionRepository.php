@@ -32,9 +32,9 @@ class SessionRepository extends EloquentRepository implements SessionRepositoryI
     /**
      * Delete a session for a given user.
      *
-     * @param int $user
+     * @param int    $user
      * @param string $session
-     * @return int|null
+     * @return null|int
      */
     public function deleteUserSession(int $user, string $session)
     {

@@ -2,23 +2,16 @@
 
 namespace Pterodactyl\Models;
 
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Validable;
+use Illuminate\Database\Eloquent\Model;
 use Pterodactyl\Services\Acl\Api\AdminAcl;
+use Sofa\Eloquence\Contracts\CleansAttributes;
+use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 
-/**
- * @property int $id
- * @property int $user_id
- * @property int $key_type
- * @property string $identifier
- * @property string $token
- * @property array $allowed_ips
- * @property string $memo
- * @property \Carbon\Carbon|null $last_used_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- */
-class ApiKey extends Model
+class ApiKey extends Model implements CleansAttributes, ValidableContract
 {
-    const RESOURCE_NAME = 'api_key';
+    use Eloquence, Validable;
 
     /**
      * Different API keys that can exist on the system.
@@ -53,7 +46,7 @@ class ApiKey extends Model
      * @var array
      */
     protected $casts = [
-        'allowed_ips' => 'array',
+        'allowed_ips' => 'json',
         'user_id' => 'int',
         'r_' . AdminAcl::RESOURCE_USERS => 'int',
         'r_' . AdminAcl::RESOURCE_ALLOCATIONS => 'int',
@@ -63,6 +56,7 @@ class ApiKey extends Model
         'r_' . AdminAcl::RESOURCE_LOCATIONS => 'int',
         'r_' . AdminAcl::RESOURCE_NESTS => 'int',
         'r_' . AdminAcl::RESOURCE_NODES => 'int',
+        'r_' . AdminAcl::RESOURCE_PACKS => 'int',
         'r_' . AdminAcl::RESOURCE_SERVERS => 'int',
     ];
 
@@ -88,18 +82,30 @@ class ApiKey extends Model
     protected $hidden = ['token'];
 
     /**
+     * Rules defining what fields must be passed when making a model.
+     *
+     * @var array
+     */
+    protected static $applicationRules = [
+        'identifier' => 'required',
+        'memo' => 'required',
+        'user_id' => 'required',
+        'token' => 'required',
+        'key_type' => 'present',
+    ];
+
+    /**
      * Rules to protect against invalid data entry to DB.
      *
      * @var array
      */
-    public static $validationRules = [
-        'user_id' => 'required|exists:users,id',
-        'key_type' => 'present|integer|min:0|max:4',
-        'identifier' => 'required|string|size:16|unique:api_keys,identifier',
-        'token' => 'required|string',
-        'memo' => 'required|nullable|string|max:500',
-        'allowed_ips' => 'nullable|array',
-        'allowed_ips.*' => 'string',
+    protected static $dataIntegrityRules = [
+        'user_id' => 'exists:users,id',
+        'key_type' => 'integer|min:0|max:4',
+        'identifier' => 'string|size:16|unique:api_keys,identifier',
+        'token' => 'string',
+        'memo' => 'nullable|string|max:500',
+        'allowed_ips' => 'nullable|json',
         'last_used_at' => 'nullable|date',
         'r_' . AdminAcl::RESOURCE_USERS => 'integer|min:0|max:3',
         'r_' . AdminAcl::RESOURCE_ALLOCATIONS => 'integer|min:0|max:3',
@@ -109,6 +115,7 @@ class ApiKey extends Model
         'r_' . AdminAcl::RESOURCE_LOCATIONS => 'integer|min:0|max:3',
         'r_' . AdminAcl::RESOURCE_NESTS => 'integer|min:0|max:3',
         'r_' . AdminAcl::RESOURCE_NODES => 'integer|min:0|max:3',
+        'r_' . AdminAcl::RESOURCE_PACKS => 'integer|min:0|max:3',
         'r_' . AdminAcl::RESOURCE_SERVERS => 'integer|min:0|max:3',
     ];
 

@@ -4,24 +4,17 @@ namespace Pterodactyl\Http\Middleware\Api\Daemon;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Repositories\Eloquent\NodeRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
 use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class DaemonAuthenticate
 {
     /**
-     * @var \Pterodactyl\Repositories\Eloquent\NodeRepository
+     * @var \Pterodactyl\Contracts\Repository\NodeRepositoryInterface
      */
     private $repository;
-
-    /**
-     * @var \Illuminate\Contracts\Encryption\Encrypter
-     */
-    private $encrypter;
 
     /**
      * Daemon routes that this middleware should be skipped on.
@@ -35,20 +28,18 @@ class DaemonAuthenticate
     /**
      * DaemonAuthenticate constructor.
      *
-     * @param \Illuminate\Contracts\Encryption\Encrypter $encrypter
-     * @param \Pterodactyl\Repositories\Eloquent\NodeRepository $repository
+     * @param \Pterodactyl\Contracts\Repository\NodeRepositoryInterface $repository
      */
-    public function __construct(Encrypter $encrypter, NodeRepository $repository)
+    public function __construct(NodeRepositoryInterface $repository)
     {
         $this->repository = $repository;
-        $this->encrypter = $encrypter;
     }
 
     /**
      * Check if a request from the daemon can be properly attributed back to a single node instance.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
      * @return mixed
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
@@ -59,37 +50,20 @@ class DaemonAuthenticate
             return $next($request);
         }
 
-        if (is_null($bearer = $request->bearerToken())) {
-            throw new HttpException(
-                401, 'Access this this endpoint must include an Authorization header.', null, ['WWW-Authenticate' => 'Bearer']
-            );
-        }
+        $token = $request->bearerToken();
 
-        $parts = explode('.', $bearer);
-        // Ensure that all of the correct parts are provided in the header.
-        if (count($parts) !== 2 || empty($parts[0]) || empty($parts[1])) {
-            throw new BadRequestHttpException(
-                'The Authorization headed provided was not in a valid format.'
-            );
+        if (is_null($token)) {
+            throw new HttpException(401, null, null, ['WWW-Authenticate' => 'Bearer']);
         }
 
         try {
-            /** @var \Pterodactyl\Models\Node $node */
-            $node = $this->repository->findFirstWhere([
-                'daemon_token_id' => $parts[0],
-            ]);
-
-            if (hash_equals((string) $this->encrypter->decrypt($node->daemon_token), $parts[1])) {
-                $request->attributes->set('node', $node);
-
-                return $next($request);
-            }
+            $node = $this->repository->findFirstWhere([['daemonSecret', '=', $token]]);
         } catch (RecordNotFoundException $exception) {
-            // Do nothing, we don't want to expose a node not existing at all.
+            throw new AccessDeniedHttpException;
         }
 
-        throw new AccessDeniedHttpException(
-            'You are not authorized to access this resource.'
-        );
+        $request->attributes->set('node', $node);
+
+        return $next($request);
     }
 }

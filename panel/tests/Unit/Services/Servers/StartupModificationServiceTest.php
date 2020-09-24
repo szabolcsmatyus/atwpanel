@@ -57,7 +57,7 @@ class StartupModificationServiceTest extends TestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -140,10 +140,12 @@ class StartupModificationServiceTest extends TestCase
             'installed' => 0,
             'nest_id' => $eggModel->nest_id,
             'egg_id' => $eggModel->id,
+            'pack_id' => 789,
             'image' => 'docker:image',
         ]))->once()->andReturn($model);
         $this->repository->shouldReceive('getDaemonServiceData')->with($model, true)->once()->andReturn([
             'egg' => 'abcd1234',
+            'pack' => 'xyz987',
         ]);
 
         $this->environmentService->shouldReceive('handle')->with($model)->once()->andReturn(['env']);
@@ -156,6 +158,7 @@ class StartupModificationServiceTest extends TestCase
             ],
             'service' => [
                 'egg' => 'abcd1234',
+                'pack' => 'xyz987',
                 'skip_scripts' => false,
             ],
         ])->once()->andReturn(new Response);
@@ -167,6 +170,7 @@ class StartupModificationServiceTest extends TestCase
         $response = $service->handle($model, [
             'docker_image' => 'docker:image',
             'egg_id' => $eggModel->id,
+            'pack_id' => 789,
             'environment' => ['test' => 'abcd1234'],
         ]);
 

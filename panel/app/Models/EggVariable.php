@@ -2,29 +2,16 @@
 
 namespace Pterodactyl\Models;
 
-/**
- * @property int $id
- * @property int $egg_id
- * @property string $name
- * @property string $description
- * @property string $env_variable
- * @property string $default_value
- * @property bool $user_viewable
- * @property bool $user_editable
- * @property string $rules
- * @property \Carbon\CarbonImmutable $created_at
- * @property \Carbon\CarbonImmutable $updated_at
- *
- * @property bool $required
- * @property \Pterodactyl\Models\Egg $egg
- * @property \Pterodactyl\Models\ServerVariable $serverVariable
- *
- * The "server_value" variable is only present on the object if you've loaded this model
- * using the server relationship.
- * @property string|null $server_value
- */
-class EggVariable extends Model
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Validable;
+use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Contracts\CleansAttributes;
+use Sofa\Eloquence\Contracts\Validable as ValidableContract;
+
+class EggVariable extends Model implements CleansAttributes, ValidableContract
 {
+    use Eloquence, Validable;
+
     /**
      * The resource name for this model when it is transformed into an
      * API representation using fractal.
@@ -37,11 +24,6 @@ class EggVariable extends Model
      * @var string
      */
     const RESERVED_ENV_NAMES = 'SERVER_MEMORY,SERVER_IP,SERVER_PORT,ENV,HOME,USER,STARTUP,SERVER_UUID,UUID';
-
-    /**
-     * @var bool
-     */
-    protected $immutableDates = true;
 
     /**
      * The table associated with the model.
@@ -64,22 +46,31 @@ class EggVariable extends Model
      */
     protected $casts = [
         'egg_id' => 'integer',
-        'user_viewable' => 'bool',
-        'user_editable' => 'bool',
+        'user_viewable' => 'integer',
+        'user_editable' => 'integer',
     ];
 
     /**
      * @var array
      */
-    public static $validationRules = [
+    protected static $applicationRules = [
+        'name' => 'required',
+        'env_variable' => 'required',
+        'rules' => 'required',
+    ];
+
+    /**
+     * @var array
+     */
+    protected static $dataIntegrityRules = [
         'egg_id' => 'exists:eggs,id',
-        'name' => 'required|string|between:1,255',
+        'name' => 'string|between:1,255',
         'description' => 'string',
-        'env_variable' => 'required|regex:/^[\w]{1,255}$/|notIn:' . self::RESERVED_ENV_NAMES,
+        'env_variable' => 'regex:/^[\w]{1,255}$/|notIn:' . self::RESERVED_ENV_NAMES,
         'default_value' => 'string',
         'user_viewable' => 'boolean',
         'user_editable' => 'boolean',
-        'rules' => 'required|string',
+        'rules' => 'string',
     ];
 
     /**
@@ -91,19 +82,12 @@ class EggVariable extends Model
     ];
 
     /**
+     * @param $value
      * @return bool
      */
-    public function getRequiredAttribute()
+    public function getRequiredAttribute($value)
     {
-        return in_array('required', explode('|', $this->rules));
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function egg()
-    {
-        return $this->hasOne(Egg::class);
+        return $this->rules === 'required' || str_contains($this->rules, ['required|', '|required']);
     }
 
     /**

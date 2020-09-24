@@ -38,7 +38,7 @@ class CleanOrphanedApiKeysCommand extends Command
     /**
      * Delete all orphaned API keys from the database when upgrading from 0.6 to 0.7.
      *
-     * @return void|null
+     * @return null|void
      */
     public function handle()
     {

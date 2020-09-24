@@ -1,22 +1,24 @@
 <?php
+/**
+ * Pterodactyl - Panel
+ * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
+ *
+ * This software is licensed under the terms of the MIT license.
+ * https://opensource.org/licenses/MIT
+ */
 
 namespace Pterodactyl\Services\Helpers;
 
+use stdClass;
 use Exception;
 use GuzzleHttp\Client;
-use Carbon\CarbonImmutable;
-use Illuminate\Support\Arr;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Pterodactyl\Exceptions\Service\Helper\CdnVersionFetchingException;
 
 class SoftwareVersionService
 {
-    const VERSION_CACHE_KEY = 'pterodactyl:versioning_data';
-
-    /**
-     * @var array
-     */
-    private static $result;
+    const VERSION_CACHE_KEY = 'pterodactyl:versions';
 
     /**
      * @var \Illuminate\Contracts\Cache\Repository
@@ -29,19 +31,27 @@ class SoftwareVersionService
     protected $client;
 
     /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    protected $config;
+
+    /**
      * SoftwareVersionService constructor.
      *
-     * @param \Illuminate\Contracts\Cache\Repository $cache
-     * @param \GuzzleHttp\Client $client
+     * @param \Illuminate\Contracts\Cache\Repository  $cache
+     * @param \GuzzleHttp\Client                      $client
+     * @param \Illuminate\Contracts\Config\Repository $config
      */
     public function __construct(
         CacheRepository $cache,
-        Client $client
+        Client $client,
+        ConfigRepository $config
     ) {
         $this->cache = $cache;
         $this->client = $client;
+        $this->config = $config;
 
-        self::$result = $this->cacheVersionData();
+        $this->cacheVersionData();
     }
 
     /**
@@ -51,7 +61,7 @@ class SoftwareVersionService
      */
     public function getPanel()
     {
-        return Arr::get(self::$result, 'panel') ?? 'error';
+        return object_get($this->cache->get(self::VERSION_CACHE_KEY), 'panel', 'error');
     }
 
     /**
@@ -61,7 +71,7 @@ class SoftwareVersionService
      */
     public function getDaemon()
     {
-        return Arr::get(self::$result, 'wings') ?? 'error';
+        return object_get($this->cache->get(self::VERSION_CACHE_KEY), 'daemon', 'error');
     }
 
     /**
@@ -71,17 +81,7 @@ class SoftwareVersionService
      */
     public function getDiscord()
     {
-        return Arr::get(self::$result, 'discord') ?? 'https://pterodactyl.io/discord';
-    }
-
-    /**
-     * Get the URL for donations.
-     *
-     * @return string
-     */
-    public function getDonations()
-    {
-        return Arr::get(self::$result, 'donations') ?? 'https://paypal.me/PterodactylSoftware';
+        return object_get($this->cache->get(self::VERSION_CACHE_KEY), 'discord', 'https://pterodactyl.io/discord');
     }
 
     /**
@@ -91,11 +91,11 @@ class SoftwareVersionService
      */
     public function isLatestPanel()
     {
-        if (config()->get('app.version') === 'canary') {
+        if ($this->config->get('app.version') === 'canary') {
             return true;
         }
 
-        return version_compare(config()->get('app.version'), $this->getPanel()) >= 0;
+        return version_compare($this->config->get('app.version'), $this->getPanel()) >= 0;
     }
 
     /**
@@ -115,22 +115,20 @@ class SoftwareVersionService
 
     /**
      * Keeps the versioning cache up-to-date with the latest results from the CDN.
-     *
-     * @return array
      */
     protected function cacheVersionData()
     {
-        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config()->get('pterodactyl.cdn.cache_time', 60)), function () {
+        $this->cache->remember(self::VERSION_CACHE_KEY, $this->config->get('pterodactyl.cdn.cache_time'), function () {
             try {
-                $response = $this->client->request('GET', config()->get('pterodactyl.cdn.url'));
+                $response = $this->client->request('GET', $this->config->get('pterodactyl.cdn.url'));
 
                 if ($response->getStatusCode() === 200) {
-                    return json_decode($response->getBody(), true);
+                    return json_decode($response->getBody());
                 }
 
                 throw new CdnVersionFetchingException;
             } catch (Exception $exception) {
-                return [];
+                return new stdClass();
             }
         });
     }

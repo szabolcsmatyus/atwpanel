@@ -1,4 +1,11 @@
 <?php
+/**
+ * Pterodactyl - Panel
+ * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
+ *
+ * This software is licensed under the terms of the MIT license.
+ * https://opensource.org/licenses/MIT
+ */
 
 namespace Tests\Unit\Commands\Schedule;
 
@@ -31,7 +38,7 @@ class ProcessRunnableCommandTest extends CommandTestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -57,7 +64,7 @@ class ProcessRunnableCommandTest extends CommandTestCase
         $display = $this->runCommand($this->command);
 
         $this->assertNotEmpty($display);
-        $this->assertStringContainsString(trans('command/messages.schedule.output_line', [
+        $this->assertContains(trans('command/messages.schedule.output_line', [
             'schedule' => $schedule->name,
             'hash' => $schedule->hashid,
         ]), $display);
@@ -76,7 +83,7 @@ class ProcessRunnableCommandTest extends CommandTestCase
         $display = $this->runCommand($this->command);
 
         $this->assertNotEmpty($display);
-        $this->assertStringNotContainsString(trans('command/messages.schedule.output_line', [
+        $this->assertNotContains(trans('command/messages.schedule.output_line', [
             'schedule' => $schedule->name,
             'hash' => $schedule->hashid,
         ]), $display);
@@ -94,7 +101,7 @@ class ProcessRunnableCommandTest extends CommandTestCase
         $display = $this->runCommand($this->command);
 
         $this->assertNotEmpty($display);
-        $this->assertStringNotContainsString(trans('command/messages.schedule.output_line', [
+        $this->assertNotContains(trans('command/messages.schedule.output_line', [
             'schedule' => $schedule->name,
             'hash' => $schedule->hashid,
         ]), $display);

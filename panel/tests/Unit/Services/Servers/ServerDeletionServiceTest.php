@@ -52,7 +52,7 @@ class ServerDeletionServiceTest extends TestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 

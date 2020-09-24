@@ -2,31 +2,16 @@
 
 namespace Pterodactyl\Models;
 
-use Illuminate\Container\Container;
-use Pterodactyl\Contracts\Extensions\HashidsInterface;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Validable;
+use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Contracts\CleansAttributes;
+use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 
-/**
- * @property int $id
- * @property int $server_id
- * @property string $name
- * @property string $cron_day_of_week
- * @property string $cron_day_of_month
- * @property string $cron_hour
- * @property string $cron_minute
- * @property bool $is_active
- * @property bool $is_processing
- * @property \Carbon\Carbon|null $last_run_at
- * @property \Carbon\Carbon|null $next_run_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
- * @property string $hashid
- *
- * @property \Pterodactyl\Models\Server $server
- * @property \Pterodactyl\Models\Task[]|\Illuminate\Support\Collection $tasks
- */
-class Schedule extends Model
+class Schedule extends Model implements CleansAttributes, ValidableContract
 {
+    use Eloquence, Validable;
+
     /**
      * The resource name for this model when it is transformed into an
      * API representation using fractal.
@@ -39,13 +24,6 @@ class Schedule extends Model
      * @var string
      */
     protected $table = 'schedules';
-
-    /**
-     * Always return the tasks associated with this schedule.
-     *
-     * @var array
-     */
-    protected $with = ['tasks'];
 
     /**
      * Mass assignable attributes on this model.
@@ -81,6 +59,8 @@ class Schedule extends Model
      * @var array
      */
     protected $dates = [
+        self::CREATED_AT,
+        self::UPDATED_AT,
         'last_run_at',
         'next_run_at',
     ];
@@ -101,13 +81,24 @@ class Schedule extends Model
     /**
      * @var array
      */
-    public static $validationRules = [
-        'server_id' => 'required|exists:servers,id',
+    protected static $applicationRules = [
+        'server_id' => 'required',
+        'cron_day_of_week' => 'required',
+        'cron_day_of_month' => 'required',
+        'cron_hour' => 'required',
+        'cron_minute' => 'required',
+    ];
+
+    /**
+     * @var array
+     */
+    protected static $dataIntegrityRules = [
+        'server_id' => 'exists:servers,id',
         'name' => 'nullable|string|max:255',
-        'cron_day_of_week' => 'required|string',
-        'cron_day_of_month' => 'required|string',
-        'cron_hour' => 'required|string',
-        'cron_minute' => 'required|string',
+        'cron_day_of_week' => 'string',
+        'cron_day_of_month' => 'string',
+        'cron_hour' => 'string',
+        'cron_minute' => 'string',
         'is_active' => 'boolean',
         'is_processing' => 'boolean',
         'last_run_at' => 'nullable|date',
@@ -121,7 +112,7 @@ class Schedule extends Model
      */
     public function getHashidAttribute()
     {
-        return Container::getInstance()->make(HashidsInterface::class)->encode($this->id);
+        return app()->make('hashids')->encode($this->id);
     }
 
     /**

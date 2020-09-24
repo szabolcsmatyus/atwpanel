@@ -41,7 +41,7 @@ class ToggleTwoFactorServiceTest extends TestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
         Carbon::setTestNow(Carbon::now());

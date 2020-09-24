@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Setup tests.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Tear down tests.
      */
-    protected function tearDown(): void
+    protected function tearDown()
     {
         parent::tearDown();
 

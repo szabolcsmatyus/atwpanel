@@ -2,25 +2,16 @@
 
 namespace Pterodactyl\Models;
 
-/**
- * @property int $id
- * @property int $node_id
- * @property string $ip
- * @property string|null $ip_alias
- * @property int $port
- * @property int|null $server_id
- * @property string|null $notes
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- *
- * @property string $alias
- * @property bool $has_alias
- *
- * @property \Pterodactyl\Models\Server|null $server
- * @property \Pterodactyl\Models\Node $node
- */
-class Allocation extends Model
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Validable;
+use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Contracts\CleansAttributes;
+use Sofa\Eloquence\Contracts\Validable as ValidableContract;
+
+class Allocation extends Model implements CleansAttributes, ValidableContract
 {
+    use Eloquence, Validable;
+
     /**
      * The resource name for this model when it is transformed into an
      * API representation using fractal.
@@ -55,13 +46,21 @@ class Allocation extends Model
     /**
      * @var array
      */
-    public static $validationRules = [
-        'node_id' => 'required|exists:nodes,id',
-        'ip' => 'required|ip',
-        'port' => 'required|numeric|between:1024,65553',
+    protected static $applicationRules = [
+        'node_id' => 'required',
+        'ip' => 'required',
+        'port' => 'required',
+    ];
+
+    /**
+     * @var array
+     */
+    protected static $dataIntegrityRules = [
+        'node_id' => 'exists:nodes,id',
+        'ip' => 'ip',
+        'port' => 'numeric|between:1024,65553',
         'ip_alias' => 'nullable|string',
         'server_id' => 'nullable|exists:servers,id',
-        'notes' => 'nullable|string|max:256',
     ];
 
     /**
@@ -77,7 +76,7 @@ class Allocation extends Model
     /**
      * Accessor to automatically provide the IP alias if defined.
      *
-     * @param string|null $value
+     * @param null|string $value
      * @return string
      */
     public function getAliasAttribute($value)
@@ -88,7 +87,7 @@ class Allocation extends Model
     /**
      * Accessor to quickly determine if this allocation has an alias.
      *
-     * @param string|null $value
+     * @param null|string $value
      * @return bool
      */
     public function getHasAliasAttribute($value)

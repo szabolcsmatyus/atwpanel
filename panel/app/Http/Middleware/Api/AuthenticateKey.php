@@ -5,7 +5,6 @@ namespace Pterodactyl\Http\Middleware\Api;
 use Closure;
 use Cake\Chronos\Chronos;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\User;
 use Pterodactyl\Models\ApiKey;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Encryption\Encrypter;
@@ -35,8 +34,8 @@ class AuthenticateKey
      * AuthenticateKey constructor.
      *
      * @param \Pterodactyl\Contracts\Repository\ApiKeyRepositoryInterface $repository
-     * @param \Illuminate\Auth\AuthManager $auth
-     * @param \Illuminate\Contracts\Encryption\Encrypter $encrypter
+     * @param \Illuminate\Auth\AuthManager                                $auth
+     * @param \Illuminate\Contracts\Encryption\Encrypter                  $encrypter
      */
     public function __construct(ApiKeyRepositoryInterface $repository, AuthManager $auth, Encrypter $encrypter)
     {
@@ -50,8 +49,8 @@ class AuthenticateKey
      * is in a valid format and exists in the database.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @param int $keyType
+     * @param \Closure                 $next
+     * @param int                      $keyType
      * @return mixed
      *
      * @throws \Pterodactyl\Exceptions\Model\DataValidationException
@@ -59,43 +58,13 @@ class AuthenticateKey
      */
     public function handle(Request $request, Closure $next, int $keyType)
     {
-        if (is_null($request->bearerToken()) && is_null($request->user())) {
+        if (is_null($request->bearerToken())) {
             throw new HttpException(401, null, null, ['WWW-Authenticate' => 'Bearer']);
         }
 
         $raw = $request->bearerToken();
-
-        // This is a request coming through using cookies, we have an authenticated user not using
-        // an API key. Make some fake API key models and continue on through the process.
-        if (empty($raw) && $request->user() instanceof User) {
-            $model = (new ApiKey())->forceFill([
-                'user_id' => $request->user()->id,
-                'key_type' => ApiKey::TYPE_ACCOUNT,
-            ]);
-        } else {
-            $model = $this->authenticateApiKey($raw, $keyType);
-            $this->auth->guard()->loginUsingId($model->user_id);
-        }
-
-        $request->attributes->set('api_key', $model);
-
-        return $next($request);
-    }
-
-    /**
-     * Authenticate an API key.
-     *
-     * @param string $key
-     * @param int $keyType
-     * @return \Pterodactyl\Models\ApiKey
-     *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
-     */
-    protected function authenticateApiKey(string $key, int $keyType): ApiKey
-    {
-        $identifier = substr($key, 0, ApiKey::IDENTIFIER_LENGTH);
-        $token = substr($key, ApiKey::IDENTIFIER_LENGTH);
+        $identifier = substr($raw, 0, ApiKey::IDENTIFIER_LENGTH);
+        $token = substr($raw, ApiKey::IDENTIFIER_LENGTH);
 
         try {
             $model = $this->repository->findFirstWhere([
@@ -110,8 +79,10 @@ class AuthenticateKey
             throw new AccessDeniedHttpException;
         }
 
+        $this->auth->guard()->loginUsingId($model->user_id);
+        $request->attributes->set('api_key', $model);
         $this->repository->withoutFreshModel()->update($model->id, ['last_used_at' => Chronos::now()]);
 
-        return $model;
+        return $next($request);
     }
 }

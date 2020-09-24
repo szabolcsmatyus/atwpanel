@@ -14,7 +14,7 @@ abstract class MiddlewareTestCase extends TestCase
     /**
      * Setup tests with a mocked request object and normal attributes.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 

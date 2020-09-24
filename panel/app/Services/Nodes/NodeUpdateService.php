@@ -2,16 +2,14 @@
 
 namespace Pterodactyl\Services\Nodes;
 
-use Illuminate\Support\Str;
 use Pterodactyl\Models\Node;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\ConnectionInterface;
-use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Repositories\Eloquent\NodeRepository;
-use Pterodactyl\Repositories\Daemon\ConfigurationRepository;
-use Pterodactyl\Repositories\Wings\DaemonConfigurationRepository;
+use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
 use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 use Pterodactyl\Exceptions\Service\Node\ConfigurationNotPersistedException;
+use Pterodactyl\Contracts\Repository\Daemon\ConfigurationRepositoryInterface;
 
 class NodeUpdateService
 {
@@ -21,37 +19,29 @@ class NodeUpdateService
     private $connection;
 
     /**
-     * @var \Pterodactyl\Repositories\Wings\DaemonConfigurationRepository
+     * @var \Pterodactyl\Contracts\Repository\Daemon\ConfigurationRepositoryInterface
      */
-    private $configurationRepository;
+    private $configRepository;
 
     /**
-     * @var \Illuminate\Contracts\Encryption\Encrypter
-     */
-    private $encrypter;
-
-    /**
-     * @var \Pterodactyl\Repositories\Eloquent\NodeRepository
+     * @var \Pterodactyl\Contracts\Repository\NodeRepositoryInterface
      */
     private $repository;
 
     /**
      * UpdateService constructor.
      *
-     * @param \Illuminate\Database\ConnectionInterface $connection
-     * @param \Illuminate\Contracts\Encryption\Encrypter $encrypter
-     * @param \Pterodactyl\Repositories\Wings\DaemonConfigurationRepository $configurationRepository
-     * @param \Pterodactyl\Repositories\Eloquent\NodeRepository $repository
+     * @param \Illuminate\Database\ConnectionInterface                                  $connection
+     * @param \Pterodactyl\Contracts\Repository\Daemon\ConfigurationRepositoryInterface $configurationRepository
+     * @param \Pterodactyl\Contracts\Repository\NodeRepositoryInterface                 $repository
      */
     public function __construct(
         ConnectionInterface $connection,
-        Encrypter $encrypter,
-        DaemonConfigurationRepository $configurationRepository,
-        NodeRepository $repository
+        ConfigurationRepositoryInterface $configurationRepository,
+        NodeRepositoryInterface $repository
     ) {
         $this->connection = $connection;
-        $this->configurationRepository = $configurationRepository;
-        $this->encrypter = $encrypter;
+        $this->configRepository = $configurationRepository;
         $this->repository = $repository;
     }
 
@@ -59,51 +49,55 @@ class NodeUpdateService
      * Update the configuration values for a given node on the machine.
      *
      * @param \Pterodactyl\Models\Node $node
-     * @param array $data
-     * @param bool $resetToken
+     * @param array                    $data
+     * @param bool                     $resetToken
      *
      * @return \Pterodactyl\Models\Node
-     * @throws \Throwable
+     *
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Pterodactyl\Exceptions\Service\Node\ConfigurationNotPersistedException
      */
     public function handle(Node $node, array $data, bool $resetToken = false)
     {
         if ($resetToken) {
-            $data['daemon_token'] = $this->encrypter->encrypt(Str::random(Node::DAEMON_TOKEN_LENGTH));
-            $data['daemon_token_id'] = Str::random(Node::DAEMON_TOKEN_ID_LENGTH);
+            $data['daemonSecret'] = str_random(Node::DAEMON_SECRET_LENGTH);
         }
 
-        [$updated, $exception] = $this->connection->transaction(function () use ($data, $node) {
-            /** @var \Pterodactyl\Models\Node $updated */
-            $updated = $this->repository->withFreshModel()->update($node->id, $data, true, true);
+        $this->connection->beginTransaction();
 
-            try {
-                // If we're changing the FQDN for the node, use the newly provided FQDN for the connection
-                // address. This should alleviate issues where the node gets pointed to a "valid" FQDN that
-                // isn't actually running the daemon software, and therefore you can't actually change it
-                // back.
-                //
-                // This makes more sense anyways, because only the Panel uses the FQDN for connecting, the
-                // node doesn't actually care about this.
-                //
-                // @see https://github.com/pterodactyl/panel/issues/1931
-                $node->fqdn = $updated->fqdn;
+        /** @var \Pterodactyl\Models\Node $updatedModel */
+        $updatedModel = $this->repository->update($node->id, $data);
 
-                $this->configurationRepository->setNode($node)->update($updated);
-            } catch (DaemonConnectionException $exception) {
-                if (! is_null($exception->getPrevious()) && $exception->getPrevious() instanceof ConnectException) {
-                    return [$updated, true];
-                }
+        try {
+            if ($resetToken) {
+                // We need to clone the new model and set it's authentication token to be the
+                // old one so we can connect. Then we will pass the new token through as an
+                // override on the call.
+                $cloned = $updatedModel->replicate(['daemonSecret']);
+                $cloned->setAttribute('daemonSecret', $node->getAttribute('daemonSecret'));
 
-                throw $exception;
+                $this->configRepository->setNode($cloned)->update([
+                    'keys' => [$data['daemonSecret']],
+                ]);
+            } else {
+                $this->configRepository->setNode($updatedModel)->update();
             }
 
-            return [$updated, false];
-        });
+            $this->connection->commit();
+        } catch (RequestException $exception) {
+            // Failed to connect to the Daemon. Let's go ahead and save the configuration
+            // and let the user know they'll need to manually update.
+            if ($exception instanceof ConnectException) {
+                $this->connection->commit();
 
-        if ($exception) {
-            throw new ConfigurationNotPersistedException(trans('exceptions.node.daemon_off_config_updated'));
+                throw new ConfigurationNotPersistedException(trans('exceptions.node.daemon_off_config_updated'));
+            }
+
+            throw new DaemonConnectionException($exception);
         }
 
-        return $updated;
+        return $updatedModel;
     }
 }
