@@ -38,7 +38,7 @@ class NestSeeder extends Seeder
     public function run()
     {
         $items = $this->repository->findWhere([
-            'author' => 'support@pterodactyl.io',
+            'author' => 'info@game.atw.hu',
         ])->keyBy('name')->toArray();
 
         $this->createMinecraftNest(array_get($items, 'Minecraft'));
@@ -61,7 +61,7 @@ class NestSeeder extends Seeder
             $this->creationService->handle([
                 'name' => 'Minecraft',
                 'description' => 'Minecraft - the classic game from Mojang. With support for Vanilla MC, Spigot, and many others!',
-            ], 'support@pterodactyl.io');
+            ], 'info@game.atw.hu');
         }
     }
 
@@ -78,7 +78,7 @@ class NestSeeder extends Seeder
             $this->creationService->handle([
                 'name' => 'Source Engine',
                 'description' => 'Includes support for most Source Dedicated Server games.',
-            ], 'support@pterodactyl.io');
+            ], 'info@game.atw.hu');
         }
     }
 
@@ -95,7 +95,7 @@ class NestSeeder extends Seeder
             $this->creationService->handle([
                 'name' => 'Voice Servers',
                 'description' => 'Voice servers such as Mumble and Teamspeak 3.',
-            ], 'support@pterodactyl.io');
+            ], 'info@game.atw.hu');
         }
     }
 
@@ -112,7 +112,7 @@ class NestSeeder extends Seeder
             $this->creationService->handle([
                 'name' => 'Rust',
                 'description' => 'Rust - A game where you must fight to survive.',
-            ], 'support@pterodactyl.io');
+            ], 'info@game.atw.hu');
         }
     }
     /**
