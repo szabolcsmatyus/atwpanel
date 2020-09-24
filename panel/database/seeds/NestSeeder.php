@@ -42,9 +42,9 @@ class NestSeeder extends Seeder
         ])->keyBy('name')->toArray();
 
         $this->createMinecraftNest(array_get($items, 'Minecraft'));
-        $this->createGamesNest(array_get($items, 'Games'));
+        $this->createGamesNest(/*array_get($items, 'Games')*/);
         $this->createVoiceServersNest(array_get($items, 'Voice Servers'));
-        $this->createTerrariaNest(array_get($items, 'Terraria'));
+        $this->createTerrariaNest(/*array_get($items, 'Terraria')*/);
         $this->createGTANest(array_get($items, 'GTA'));
     }
     /**
