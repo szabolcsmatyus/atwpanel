@@ -45,6 +45,23 @@ class NestSeeder extends Seeder
         $this->createSourceEngineNest(array_get($items, 'Source Engine'));
         $this->createVoiceServersNest(array_get($items, 'Voice Servers'));
         $this->createRustNest(array_get($items, 'Rust'));
+        $this->createGTANest(array_get($items, 'GTA'));
+    }
+    /**
+     * Create the Minecraft nest to be used later on.
+     *
+     * @param array|null $nest
+     *
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     */
+    private function createGTANest(array $nest = null)
+    {
+        if (is_null($nest)) {
+            $this->creationService->handle([
+                'name' => 'GTA',
+                'description' => 'GTA - the classic game from Mojang. With support for Vanilla MC, Spigot, and many others!',
+            ], 'support@pterodactyl.io');
+        }
     }
     /**
      * Create the Minecraft nest to be used later on.
