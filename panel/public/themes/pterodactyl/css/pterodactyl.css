@@ -23,7 +23,7 @@
  @import 'checkbox.css';
 
 .login-page {
-    background: #10529f;
+    background: #0f2030;
 }
 
 #login-position-elements {
@@ -31,7 +31,7 @@
 }
 
 .login-logo {
-    color: #fff;
+    color: #15d1ae;
     font-weight: 400;
 }
 

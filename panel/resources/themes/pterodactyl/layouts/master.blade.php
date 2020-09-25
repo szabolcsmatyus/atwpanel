@@ -97,6 +97,8 @@
                                 <i class="fa fa-user"></i> <span>@lang('navigation.account.my_account')</span>
                             </a>
                         </li>
+                        <?php
+                        /*
                         <li class="{{ Route::currentRouteName() !== 'account.security' ?: 'active' }}">
                             <a href="{{ route('account.security')}}">
                                 <i class="fa fa-lock"></i> <span>@lang('navigation.account.security_controls')</span>
@@ -107,6 +109,8 @@
                                 <i class="fa fa-code"></i> <span>@lang('navigation.account.api_access')</span>
                             </a>
                         </li>
+                        */
+                        ?>
                         <li class="{{ Route::currentRouteName() !== 'index' ?: 'active' }}">
                             <a href="{{ route('index')}}">
                                 <i class="fa fa-server"></i> <span>@lang('navigation.account.my_servers')</span>
@@ -242,10 +246,13 @@
                 </section>
             </div>
             <footer class="main-footer">
+                <?php
+                /*
                 <div class="pull-right small text-gray" style="margin-right:10px;margin-top:-7px;">
                     <strong><i class="fa fa-fw {{ $appIsGit ? 'fa-git-square' : 'fa-code-fork' }}"></i></strong> {{ $appVersion }}<br />
                     <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s
                 </div>
+                */?>
                 Minden jog fenntartva. © 2003-{{ date('Y') }} <a href="https://atw.hu/" target="_blank">ATW Internet Kft.</a>
             </footer>
             @if(isset($sidebarServerList))
