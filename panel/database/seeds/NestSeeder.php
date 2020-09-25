@@ -42,7 +42,7 @@ class NestSeeder extends Seeder
         ])->keyBy('name')->toArray();
 
         $this->createMinecraftNest(array_get($items, 'Minecraft'));
-        $this->createGamesNest(array_get($items, 'Games'));
+        $this->createOtherNest(array_get($items, 'Other'));
         $this->createVoiceServersNest(array_get($items, 'Voice Servers'));
         $this->createTerrariaNest(array_get($items, 'Terraria'));
         $this->createGTANest(array_get($items, 'GTA'));
@@ -59,7 +59,7 @@ class NestSeeder extends Seeder
         if (is_null($nest)) {
             $this->creationService->handle([
                 'name' => 'GTA',
-                'description' => 'GTA - the classic game from Mojang. With support for Vanilla MC, Spigot, and many others!',
+                'description' => 'GTA',
             ], 'support@pterodactyl.io');
         }
     }
@@ -87,12 +87,12 @@ class NestSeeder extends Seeder
      *
      * @throws \Pterodactyl\Exceptions\Model\DataValidationException
      */
-    private function createGamesNest(array $nest = null)
+    private function createOtherNest(array $nest = null)
     {
         if (is_null($nest)) {
             $this->creationService->handle([
-                'name' => 'Games',
-                'description' => 'Games',
+                'name' => 'Other',
+                'description' => 'Other',
             ], 'support@pterodactyl.io');
         }
     }
