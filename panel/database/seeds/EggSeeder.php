@@ -80,9 +80,9 @@ class EggSeeder extends Seeder
     {
         return collect([
             'Minecraft',
-            'Source Engine',
+            'Games',
             'Voice Servers',
-            'Rust',
+            'Terraria',
             'GTA'
         ]);
     }
