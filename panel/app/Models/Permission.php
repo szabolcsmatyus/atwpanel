@@ -77,25 +77,25 @@ class Permission extends Model implements CleansAttributes, ValidableContract
             'power-kill' => 's:power:kill',
             'send-command' => 's:command',
         ],
-        'subuser' => [
+        /*'subuser' => [
             'list-subusers' => null,
             'view-subuser' => null,
             'edit-subuser' => null,
             'create-subuser' => null,
             'delete-subuser' => null,
-        ],
+        ],*/
         'server' => [
-            'view-allocations' => null,
-            'edit-allocation' => null,
+            //'view-allocations' => null,
+            //'edit-allocation' => null,
             'view-startup' => null,
             'edit-startup' => null,
-        ],
+        ],/*
         'database' => [
             'view-databases' => null,
             'reset-db-password' => null,
             'delete-database' => null,
             'create-database' => null,
-        ],
+        ],*/
         'file' => [
             'access-sftp' => null,
             'list-files' => 's:files:get',
@@ -109,7 +109,7 @@ class Permission extends Model implements CleansAttributes, ValidableContract
             'upload-files' => 's:files:upload',
             'delete-files' => 's:files:delete',
             'download-files' => 's:files:download',
-        ],
+        ],/*
         'task' => [
             'list-schedules' => null,
             'view-schedule' => null,
@@ -118,7 +118,7 @@ class Permission extends Model implements CleansAttributes, ValidableContract
             'edit-schedule' => null,
             'create-schedule' => null,
             'delete-schedule' => null,
-        ],
+        ],*/
     ];
 
     /**
