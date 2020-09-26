@@ -29,7 +29,7 @@ return [
     ],
     'index' => [
         'header' => 'Szervereid',
-        'header_sub' => 'Szerverek amiket te kezelsz.',
+        'header_sub' => '',
         'list' => 'Szerverek',
     ],
     'api' => [
@@ -58,7 +58,7 @@ return [
         'details_updated' => 'Adataid módosítása sikeresen megtörtént.',
         'invalid_password' => 'A jelszó amit megadtál helytelen.',
         'header' => 'Fiók',
-        'header_sub' => 'Fiók adatai',
+        'header_sub' => '',
         'update_pass' => 'Jelszó módosítása',
         'update_email' => 'E-mail módosítása',
         'current_password' => 'Aktuális jelszó',

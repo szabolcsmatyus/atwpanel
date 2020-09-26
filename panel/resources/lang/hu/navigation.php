@@ -3,7 +3,7 @@
 return [
     'home' => 'Kezdőlap',
     'account' => [
-        'header' => 'ACCOUNT MANAGEMENT',
+        'header' => 'Kezelés',
         'my_account' => 'Fiókom',
         'security_controls' => 'Security Controls',
         'api_access' => 'Account API',

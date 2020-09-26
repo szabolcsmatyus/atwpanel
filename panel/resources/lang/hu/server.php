@@ -4,11 +4,11 @@ return [
     'index' => [
         'title' => ':name szerver megtekintése',
         'header' => 'Szerver konzol',
-        'header_sub' => 'Kezeld szervered valós időben!',
+        'header_sub' => '',
     ],
     'schedule' => [
         'header' => 'Ütemezés kezelő',
-        'header_sub' => 'Kezeld a szerver ütemezett műveleteit egy helyen!',
+        'header_sub' => '',
         'current' => 'Jelenlegi ütemezések',
         'new' => [
             'header' => 'Ütemezett művelet létrehozása',
@@ -268,7 +268,7 @@ return [
             'max_size' => 'Ez a fájl túl nagy, hogy a fájl menedzserből szerkeszteni lehessen,',
         ],
         'header' => 'Fájl menedzser',
-        'header_sub' => 'Kezeld szervered fájlait a böngészőből.',
+        'header_sub' => '',
         'loading' => 'Fájl szerkezet betöltése...',
         'path' => 'Web alapíú fájlfeltöltések maximális mérete: :size.',
         'seconds_ago' => 'másodpercel ezelőtt',
@@ -295,12 +295,12 @@ return [
     'config' => [
         'name' => [
             'header' => 'Szerver neve',
-            'header_sub' => 'Változtasd meg szervered nevét.',
+            'header_sub' => '',
             'details' => 'Ez a név játékban nem látható kizárólag az admin felületen.',
         ],
         'startup' => [
             'header' => 'Indítási beállítások',
-            'header_sub' => 'Indítási paraméterek módosítása',
+            'header_sub' => '',
             'command' => 'Indítási parancs',
             'edit_params' => 'Beállítások módosítása',
             'update' => 'Beállítások frissítése',
@@ -309,7 +309,7 @@ return [
         ],
         'sftp' => [
             'header' => 'SFTP beállítások',
-            'header_sub' => 'Felhasználói adatok SFTP kapcsolathoz.',
+            'header_sub' => '',
             'details' => 'Részletek',
             'conn_addr' => 'Cím',
             'warning' => 'Az SFTP jelszó a felhasználód jelszava. Menj biztosra, hogy nem FTP-vel szeretnél csatlakozni, csak SFTP vagy FTPS van támogatva.',

@@ -9,14 +9,14 @@
     <div class="box-tools">
         <a href="/server/{{ $server->uuidShort }}/files/add/@if($directory['header'] !== '')?dir={{ $directory['header'] }}@endif">
             <button class="btn btn-success btn-sm btn-icon">
-                New File <i class="fa fa-fw fa-file-text-o"></i>
+                Új <i class="fa fa-fw fa-file-text-o"></i>
             </button>
         </a>
         <button class="btn btn-sm btn-success btn-icon" data-action="add-folder">
-            New Folder <i class="fa fa-fw fa-folder-open-o"></i>
+            Új mappa <i class="fa fa-fw fa-folder-open-o"></i>
         </button>
         <label class="btn btn-primary btn-sm btn-icon">
-            Upload <i class="fa fa-fw fa-upload"></i><input type="file" id="files_touch_target" class="hidden">
+            Feltöltés <i class="fa fa-fw fa-upload"></i><input type="file" id="files_touch_target" class="hidden">
         </label>
         <div class="btn-group hidden-xs">
             <button type="button" id="mass_actions" class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
