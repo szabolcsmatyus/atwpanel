@@ -45,7 +45,7 @@
                             <th class="text-center hidden-sm hidden-xs">@lang('strings.memory')</th>
                             <th class="text-center hidden-sm hidden-xs">@lang('strings.cpu')</th>
                             <th class="text-center hidden-sm hidden-xs">@lang('strings.disk')</th>
-                            <th class="text-center">@lang('strings.relation')</th>
+                            <?php //<th class="text-center">@lang('strings.relation')</th> ?>
                             <th class="text-center">@lang('strings.status')</th>
                         </tr>
                         @foreach($servers as $server)
@@ -57,7 +57,7 @@
                                 <td class="text-center hidden-sm hidden-xs"><span data-action="memory">--</span> / {{ $server->memory === 0 ? '∞' : $server->memory }} MB</td>
                                 <td class="text-center hidden-sm hidden-xs"><span data-action="cpu" data-cpumax="{{ $server->cpu }}">--</span> %</td>
                                 <td class="text-center hidden-sm hidden-xs"><span data-action="disk">--</span> / {{ $server->disk === 0 ? '∞' : $server->disk }} MB </td>
-                                <td class="text-center">
+                                <?php /*<td class="text-center">
                                     @if($server->user->id === Auth::user()->id)
                                         <span class="label bg-purple">@lang('strings.owner')</span>
                                     @elseif(Auth::user()->root_admin)
@@ -66,6 +66,7 @@
                                         <span class="label bg-blue">@lang('strings.subuser')</span>
                                     @endif
                                 </td>
+                                */?>
                                 @if($server->node->maintenance_mode)
                                     <td class="text-center">
                                         <span class="label label-warning">@lang('strings.under_maintenance')</span>

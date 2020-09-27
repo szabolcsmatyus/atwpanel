@@ -293,7 +293,7 @@ $(document).ready(function () {
                 labels: TimeLabels,
                 datasets: [
                     {
-                        label: "Percent Use",
+                        label: "Használatba (%)",
                         fill: false,
                         lineTension: 0.03,
                         backgroundColor: "#3c8dbc",
@@ -318,7 +318,7 @@ $(document).ready(function () {
             },
             options: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'CPU Usage (as Percent Total)'
                 },
                 legend: {
@@ -345,7 +345,7 @@ $(document).ready(function () {
                 labels: TimeLabels,
                 datasets: [
                     {
-                        label: "Memory Use",
+                        label: "Használatban (MB)",
                         fill: false,
                         lineTension: 0.03,
                         backgroundColor: "#3c8dbc",
@@ -370,8 +370,8 @@ $(document).ready(function () {
             },
             options: {
                 title: {
-                    display: true,
-                    text: 'Memory Usage (in Megabytes)'
+                    display: false,
+                    text: ''
                 },
                 legend: {
                     display: false,

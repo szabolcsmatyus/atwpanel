@@ -48,16 +48,16 @@
                     element.find('[data-action="status"]').html('<span class="label label-success">Online</span>');
                     break;
                 case 2:
-                    element.find('[data-action="status"]').html('<span class="label label-info">Starting</span>');
+                    element.find('[data-action="status"]').html('<span class="label label-info">Indul</span>');
                     break;
                 case 3:
-                    element.find('[data-action="status"]').html('<span class="label label-info">Stopping</span>');
+                    element.find('[data-action="status"]').html('<span class="label label-info">Leáll</span>');
                     break;
                 case 20:
-                    element.find('[data-action="status"]').html('<span class="label label-warning">Installing</span>');
+                    element.find('[data-action="status"]').html('<span class="label label-warning">Telepítés</span>');
                     break;
                 case 30:
-                    element.find('[data-action="status"]').html('<span class="label label-warning">Suspended</span>');
+                    element.find('[data-action="status"]').html('<span class="label label-warning">Letilva</span>');
                     break;
             }
             if (data.status > 0 && data.status < 4) {

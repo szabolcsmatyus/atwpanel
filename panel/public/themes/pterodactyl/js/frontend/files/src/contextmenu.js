@@ -44,26 +44,26 @@ class ContextMenuClass {
         let buildMenu = '<ul id="fileOptionMenu" class="dropdown-menu" role="menu" style="display:none" >';
 
         if (Pterodactyl.permissions.moveFiles) {
-            buildMenu += '<li data-action="rename"><a tabindex="-1" href="#"><i class="fa fa-fw fa-pencil-square-o"></i> Rename</a></li> \
-                          <li data-action="move"><a tabindex="-1" href="#"><i class="fa fa-fw fa-arrow-right"></i> Move</a></li>';
+            buildMenu += '<li data-action="rename"><a tabindex="-1" href="#"><i class="fa fa-fw fa-pencil-square-o"></i> Átnevezés</a></li> \
+                          <li data-action="move"><a tabindex="-1" href="#"><i class="fa fa-fw fa-arrow-right"></i> Áthelyezés</a></li>';
         }
 
         if (Pterodactyl.permissions.copyFiles) {
-            buildMenu += '<li data-action="copy"><a tabindex="-1" href="#"><i class="fa fa-fw fa-clone"></i> Copy</a></li>';
+            buildMenu += '<li data-action="copy"><a tabindex="-1" href="#"><i class="fa fa-fw fa-clone"></i> Másolás</a></li>';
         }
 
         if (Pterodactyl.permissions.compressFiles) {
-            buildMenu += '<li data-action="compress" class="hidden"><a tabindex="-1" href="#"><i class="fa fa-fw fa-file-archive-o"></i> Compress</a></li>';
+            buildMenu += '<li data-action="compress" class="hidden"><a tabindex="-1" href="#"><i class="fa fa-fw fa-file-archive-o"></i> Tömörítés</a></li>';
         }
 
         if (Pterodactyl.permissions.decompressFiles) {
-            buildMenu += '<li data-action="decompress" class="hidden"><a tabindex="-1" href="#"><i class="fa fa-fw fa-expand"></i> Decompress</a></li>';
+            buildMenu += '<li data-action="decompress" class="hidden"><a tabindex="-1" href="#"><i class="fa fa-fw fa-expand"></i> Kicsomagolás</a></li>';
         }
 
         if (Pterodactyl.permissions.createFiles) {
             buildMenu += '<li class="divider"></li> \
-                          <li data-action="file"><a href="/server/'+ Pterodactyl.server.uuidShort +'/files/add/?dir=' + $('<div>').text(newFilePath).html() + '" class="text-muted"><i class="fa fa-fw fa-plus"></i> New File</a></li> \
-                          <li data-action="folder"><a tabindex="-1" href="#"><i class="fa fa-fw fa-folder"></i> New Folder</a></li>';
+                          <li data-action="file"><a href="/server/'+ Pterodactyl.server.uuidShort +'/files/add/?dir=' + $('<div>').text(newFilePath).html() + '" class="text-muted"><i class="fa fa-fw fa-plus"></i> Új fájl</a></li> \
+                          <li data-action="folder"><a tabindex="-1" href="#"><i class="fa fa-fw fa-folder"></i> Új mappa</a></li>';
         }
 
         if (Pterodactyl.permissions.downloadFiles || Pterodactyl.permissions.deleteFiles) {
@@ -71,11 +71,11 @@ class ContextMenuClass {
         }
 
         if (Pterodactyl.permissions.downloadFiles) {
-            buildMenu += '<li data-action="download" class="hidden"><a tabindex="-1" href="#"><i class="fa fa-fw fa-download"></i> Download</a></li>';
+            buildMenu += '<li data-action="download" class="hidden"><a tabindex="-1" href="#"><i class="fa fa-fw fa-download"></i> Letöltés</a></li>';
         }
 
         if (Pterodactyl.permissions.deleteFiles) {
-            buildMenu += '<li data-action="delete" class="bg-danger"><a tabindex="-1" href="#"><i class="fa fa-fw fa-trash-o"></i> Delete</a></li>';
+            buildMenu += '<li data-action="delete" class="bg-danger"><a tabindex="-1" href="#"><i class="fa fa-fw fa-trash-o"></i> Törlés</a></li>';
         }
 
         buildMenu += '</ul>';
