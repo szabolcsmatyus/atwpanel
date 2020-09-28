@@ -25,7 +25,7 @@
     "variables": [
         {
             "name": "Server Jar Fájl",
-            "description": "A server.jar fájl neve amivel a szerver furni fog.",
+            "description": "A server.jar fájl neve amivel a szerver futni fog.",
             "env_variable": "SERVER_JARFILE",
             "default_value": "server.jar",
             "user_viewable": 1,
