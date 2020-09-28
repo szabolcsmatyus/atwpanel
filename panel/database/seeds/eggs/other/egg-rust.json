@@ -24,8 +24,8 @@
     },
     "variables": [
         {
-            "name": "Server Name",
-            "description": "The name of your server in the public server list.",
+            "name": "Szerver neve",
+            "description": "Szerver neve ahogy megjelenik a publikus listákon.",
             "env_variable": "HOSTNAME",
             "default_value": "A Rust Server",
             "user_viewable": 1,
@@ -34,7 +34,7 @@
         },
         {
             "name": "OxideMod",
-            "description": "Set whether you want the server to use and auto update OxideMod or not. Valid options are \"1\" for true and \"0\" for false.",
+            "description": "OxideMod használathához \"1\", ha nem szeretnéd használni \"0\".",
             "env_variable": "OXIDE",
             "default_value": "0",
             "user_viewable": 1,
@@ -42,8 +42,8 @@
             "rules": "required|boolean"
         },
         {
-            "name": "Level",
-            "description": "The world file for Rust to use.",
+            "name": "Világ",
+            "description": "A világ fájl neve amit használni szeretnél.",
             "env_variable": "LEVEL",
             "default_value": "Procedural Map",
             "user_viewable": 1,
@@ -51,8 +51,8 @@
             "rules": "required|string|max:20"
         },
         {
-            "name": "Description",
-            "description": "The description under your server title. Commonly used for rules & info. Use \\n for newlines.",
+            "name": "Leírás",
+            "description": "A leírás aszerver neve alatt fog megjelenni. Használd a \\n-t új sor létrehozásához.",
             "env_variable": "DESCRIPTION",
             "default_value": "Powered by Pterodactyl",
             "user_viewable": 1,
@@ -61,7 +61,7 @@
         },
         {
             "name": "URL",
-            "description": "The URL for your server. This is what comes up when clicking the \"Visit Website\" button.",
+            "description": "A szerver URL címe ami akkor jön elő mikor a \"Visit Website\"-ra kattintanak.",
             "env_variable": "SERVER_URL",
             "default_value": "http:\/\/pterodactyl.io",
             "user_viewable": 1,
@@ -69,8 +69,8 @@
             "rules": "nullable|url"
         },
         {
-            "name": "World Size",
-            "description": "The world size for a procedural map.",
+            "name": "Világ mérete",
+            "description": "1000-5000 között lehet ez az érték",
             "env_variable": "WORLD_SIZE",
             "default_value": "3000",
             "user_viewable": 1,
@@ -78,8 +78,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "World Seed",
-            "description": "The seed for a procedural map.",
+            "name": "Világ mag",
+            "description": "A világ mag ami alapján a térkép generálva lesz",
             "env_variable": "WORLD_SEED",
             "default_value": "",
             "user_viewable": 1,
@@ -87,8 +87,8 @@
             "rules": "nullable|string"
         },
         {
-            "name": "Max Players",
-            "description": "The maximum amount of players allowed in the server at once.",
+            "name": "Maximum játékosok",
+            "description": "A maxmium létszám szervereden.",
             "env_variable": "MAX_PLAYERS",
             "default_value": "40",
             "user_viewable": 1,
@@ -96,8 +96,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "Server Image",
-            "description": "The header image for the top of your server listing.",
+            "name": "Szerver képe",
+            "description": "URL a képhez ami megjelenik szervered fejlécében.",
             "env_variable": "SERVER_IMG",
             "default_value": "",
             "user_viewable": 1,
@@ -105,8 +105,8 @@
             "rules": "nullable|url"
         },
         {
-            "name": "RCON Port",
-            "description": "Port for RCON connections.",
+            "name": "RCON port",
+            "description": "Port használata RCON-hoz.",
             "env_variable": "RCON_PORT",
             "default_value": "28016",
             "user_viewable": 1,
@@ -114,8 +114,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "RCON Password",
-            "description": "RCON access password.",
+            "name": "RCON jelszó",
+            "description": "Jelszó RCON használatához.",
             "env_variable": "RCON_PASS",
             "default_value": "CHANGEME",
             "user_viewable": 1,
@@ -123,8 +123,8 @@
             "rules": "required|string|max:64"
         },
         {
-            "name": "Save Interval",
-            "description": "Sets the server\u2019s auto-save interval in seconds.",
+            "name": "Mentési periódus",
+            "description": "A szervered mentési periódusának beállítása.",
             "env_variable": "SAVEINTERVAL",
             "default_value": "60",
             "user_viewable": 1,
@@ -132,8 +132,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "Additional Arguments",
-            "description": "Add additional startup parameters to the server.",
+            "name": "Választható indítási paraméterek",
+            "description": "Adj hozzá egyedi indítási paramétereket.",
             "env_variable": "ADDITIONAL_ARGS",
             "default_value": "",
             "user_viewable": 1,
@@ -141,8 +141,8 @@
             "rules": "nullable|string"
         },
         {
-            "name": "App Port",
-            "description": "Port for the Rust+ App.  -1 for disabled.",
+            "name": "Rust+ port",
+            "description": "A Rust+ App portja. -1 a kikapcsolt állapotot jelzi.",
             "env_variable": "APP_PORT",
             "default_value": "28082",
             "user_viewable": 1,
