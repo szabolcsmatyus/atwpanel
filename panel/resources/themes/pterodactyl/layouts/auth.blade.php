@@ -34,7 +34,7 @@
         @show
     </head>
     <body id="particles-js" class="hold-transition login-page">
-        <button class="btn btn-block">Megrendelés</button>
+        <button>Megrendelés</button>
         <div class="container">
             <div id="login-position-elements">
                 <div class="login-logo">
