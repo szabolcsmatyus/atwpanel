@@ -22,7 +22,10 @@
  */
 @import 'checkbox.css';
 
-.order-btn {
+#order-btn {
+}
+
+#order-panel {
 }
 
 .login-page {

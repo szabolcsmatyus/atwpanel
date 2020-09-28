@@ -34,21 +34,10 @@
         @show
     </head>
     <body id="particles-js" class="hold-transition login-page">
-        <button class="order-btn">Megrendelés</button>
-        <div class="cd-panel from-right">
-            <header class="cd-panel-header">
-                <h1>Views</h1>
-                <a href="#0" class="cd-panel-close">Close</a>
-            </header>
-            <div class="cd-panel-container">
-                <a href="#0" class="cd-btn">Views</a>
-                <div class="cd-panel-content" ng-controller="ViewtreeCtrl">
-                    <div>
-                    Panel elements
-                    </div>
-                </div>
+        <button id="order-btn">Megrendelés</button>
+            <div id="order-panel">
+                Alma
             </div>
-        </div>
         <div class="container">
             <div id="login-position-elements">
                 <div class="login-logo">
@@ -71,17 +60,9 @@
             $(function () {
                 particlesJS.load('particles-js', '{!! Theme::url('vendor/particlesjs/particles.json?t={cache-version}') !!}', function() {});
             });
-            jQuery(document).ready(function($){
-    //open the lateral panel
-                $('.cd-btn').on('click', function(event){
-                    event.preventDefault();
-                    $('.cd-panel').addClass('is-visible');
-                });
-                $('.cd-panel').on('click', function(event){
-                    if( $(event.target).is('.cd-panel') || $(event.target).is('.cd-panel-close') ) { 
-                        $('.cd-panel').removeClass('is-visible');
-                    event.preventDefault();
-                    }
+            $(document).ready(function(){
+                $("#order-btn").click(function(){
+                    $("#order-panel").slideToggle("slow");
                 });
             });
         </script>
