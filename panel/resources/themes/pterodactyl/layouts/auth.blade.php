@@ -35,9 +35,9 @@
     </head>
     <body id="particles-js" class="hold-transition login-page">
         <button id="order-btn">Megrendelés</button>
-            <div id="order-panel">
-                Alma
-            </div>
+        <div id="order-panel">
+            Alma
+        </div>
         <div class="container">
             <div id="login-position-elements">
                 <div class="login-logo">
@@ -63,6 +63,7 @@
             $(document).ready(function(){
                 $("#order-btn").click(function(){
                     $("#order-panel").slideToggle("slow");
+                    $(".container").slideToggle("slow");
                 });
             });
         </script>
