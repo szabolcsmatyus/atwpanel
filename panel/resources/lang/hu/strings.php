@@ -2,7 +2,7 @@
 
 return [
     'email' => 'Email',
-    'user_identifier' => 'Felhasználónév vagy e-mai',
+    'user_identifier' => 'Felhasználónév vagy e-mail',
     'password' => 'Jelszó',
     'confirm_password' => 'Confirm Password',
     'login' => 'Bejelentkezés',
