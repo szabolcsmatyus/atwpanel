@@ -34,9 +34,9 @@
         @show
     </head>
     <body id="particles-js" class="hold-transition login-page">
-        <div style="height: 100%">
+        <div  id="order-panel">
             <button id="order-btn">Megrendelés</button>
-            <div id="order-panel">
+            <div>
                 Alma
             </div>
         </div>
