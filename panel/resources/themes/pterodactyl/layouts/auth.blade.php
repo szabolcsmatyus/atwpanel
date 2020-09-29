@@ -62,14 +62,12 @@
             });
             $(document).ready(function(){
                 $("#order-btn").click(function(){
-                    $("#order-panel").slideToggle("slow");
                     $(".container").fadeToggle("slow");
-                    $("#order-btn").fadeToggle("slow");
+                    $("#order-btn").fadeToggle("slow","swing",$("#order-panel").slideToggle("slow"));
                 });
                 $("#order-close-btn").click(function(){
-                    $("#order-panel").slideToggle("slow");
                     $(".container").fadeToggle("slow");
-                    $("#order-btn").fadeToggle("fast");
+                    $("#order-btn").fadeToggle("slow", 'swing',$("#order-panel").slideToggle("slow"));
                 });
             });
         </script>
