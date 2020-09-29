@@ -62,8 +62,8 @@
             });
             $(document).ready(function(){
                 $("#order-btn").click(function(){
+                    $(".container").fadeToggle("slow");
                     $("#order-btn").fadeToggle("slow",function(){
-                        $(".container").fadeToggle("slow");
                         $("#order-panel").slideToggle("slow");
                     });
                 });
