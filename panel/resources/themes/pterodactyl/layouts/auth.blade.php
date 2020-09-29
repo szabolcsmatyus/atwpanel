@@ -63,13 +63,13 @@
             $(document).ready(function(){
                 $("#order-btn").click(function(){
                     $("#order-panel").slideToggle("slow");
-                    $(".container").slideToggle("slow");
-                    $("#order-btn").slideToggle("fast");
+                    $(".container").fadeToggle("slow");
+                    $("#order-btn").fadeToggle("slow");
                 });
                 $("#order-close-btn").click(function(){
                     $("#order-panel").slideToggle("slow");
-                    $(".container").slideToggle("slow");
-                    $("#order-btn").slideToggle("fast");
+                    $(".container").fadeToggle("slow");
+                    $("#order-btn").fadeToggle("fast");
                 });
             });
         </script>
