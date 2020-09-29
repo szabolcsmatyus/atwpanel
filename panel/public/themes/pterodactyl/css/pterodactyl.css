@@ -22,11 +22,15 @@
  */
 @import 'checkbox.css';
 
+::placeholder {
+    color: rgba(9, 218, 173, 0.632) !important;
+}
+
 #order-btn {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid #000;
     border-radius: 2px;
-    color: #FFF;
+    color: #09DBAE;
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -47,20 +51,21 @@
     border: 1px solid transparent;
     border-radius: 4px;
     width: 100%;
+    height: 10%;
 }
 
 #order-btn:hover {
     background: rgba(0, 0, 0, 0.7);
-    border: 1px solid #09DBAE;
+    border-bottom: 1px solid #09DBAE;
     border-radius: 2px;
-    color: #FFF;
+    color: #09DBAE;
 }
 
 #order-close-btn {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid #000;
     border-radius: 2px;
-    color: #FFF;
+    color: #09DBAE;
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -88,7 +93,7 @@
     background: rgba(0, 0, 0, 0.7);
     border: 1px solid #09DBAE;
     border-radius: 2px;
-    color: #FFF;
+    color: #09DBAE;
 }
 
 #order-panel {
@@ -113,11 +118,11 @@
 }
 
 .login-copyright {
-    color: rgba(255, 255, 255, 0.3);
+    color: #09DBAE;
 }
 
 .login-copyright > a {
-    color: rgba(255, 255, 255, 0.6);
+    color: #E7E7E7;
 }
 
 .particles-js-canvas-el {
@@ -138,32 +143,32 @@
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid #000;
     border-radius: 2px;
-    color: #FFFFFF;
+    color: #09DBAE;
 }
 
 .pterodactyl-login-input > .form-control-feedback {
-    color: #FFF;
+    color: #09DBAE;
 }
 
 .pterodactyl-login-button--main {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid #000;
     border-radius: 2px;
-    color: #FFF;
+    color: #09DBAE;
 }
 
 .pterodactyl-login-button--main:hover {
     background: rgba(0, 0, 0, 0.7);
     border: 1px solid #09DBAE;
     border-radius: 2px;
-    color: #FFF;
+    color: #09DBAE;
 }
 
 .pterodactyl-login-button--left {
     background: #070E16;
     border: 1px solid #000;
     border-radius: 2px;
-    color: #FFFFFF;
+    color: #09DBAE;
 }
 
 .pterodactyl-login-button--left:hover {
@@ -171,7 +176,7 @@
     background: rgba(0, 0, 0, 0.7);
     border: 1px solid #09DBAE;
     border-radius: 2px;
-    color: #FFFFFF;
+    color: #09DBAE;
 }
 
 .weight-100 {

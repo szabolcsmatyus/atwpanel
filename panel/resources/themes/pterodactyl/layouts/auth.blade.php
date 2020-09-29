@@ -34,7 +34,7 @@
         @show
     </head>
     <body id="particles-js" class="hold-transition login-page">
-        <button id="order-btn">Megrendelés</button>
+        <button id="order-btn">Szervert szeretnék!</button>
         <div id="order-panel">
             <button id="order-close-btn">X</button>
         </div>

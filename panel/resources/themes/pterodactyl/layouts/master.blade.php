@@ -39,7 +39,7 @@
             <![endif]-->
         @show
     </head>
-    <body id="particles-js" class="hold-transition skin-blue fixed sidebar-mini">
+    <body class="hold-transition skin-blue fixed sidebar-mini">
         <div class="wrapper">
             <header class="main-header">
                 <a href="{{ route('index') }}" class="logo">
@@ -216,7 +216,7 @@
                     </ul>
                 </section>
             </aside>
-            <div class="content-wrapper">
+            <div class="content-wrapper"  id="particles-js" >
                 <section class="content-header">
                     @yield('content-header')
                 </section>
