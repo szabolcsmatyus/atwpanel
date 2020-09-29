@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <?php /*
+                            <?php
                             <div class="row">
                                 <div class="form-group col-xs-12">
                                     <label for="language" class="control-label">@lang('base.account.language')</label>
@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                            */?>
+                            ?>
                         </div>
                         <div class="box-footer with-border">
                             {!! csrf_field() !!}
