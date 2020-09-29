@@ -64,12 +64,12 @@
                 $("#order-btn").click(function(){
                     $("#order-panel").slideToggle("slow");
                     $(".container").slideToggle("slow");
-                    $("#order-btn").slideToggle("slow");
+                    $("#order-btn").slideToggle("fast");
                 });
                 $("#order-close-btn").click(function(){
                     $("#order-panel").slideToggle("slow");
                     $(".container").slideToggle("slow");
-                    $("#order-btn").slideToggle("slow");
+                    $("#order-btn").slideToggle("fast");
                 });
             });
         </script>
