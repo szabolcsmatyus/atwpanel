@@ -39,7 +39,7 @@
             <![endif]-->
         @show
     </head>
-    <body class="hold-transition skin-blue fixed sidebar-mini">
+    <body id="particles-js" class="hold-transition skin-blue fixed sidebar-mini">
         <div class="wrapper">
             <header class="main-header">
                 <a href="{{ route('index') }}" class="logo">
@@ -293,6 +293,13 @@
             {!! Theme::js('vendor/socketio/socket.io.v203.min.js?t={cache-version}') !!}
             {!! Theme::js('vendor/bootstrap-notify/bootstrap-notify.min.js?t={cache-version}') !!}
             {!! Theme::js('js/autocomplete.js?t={cache-version}') !!}
+            {!! Theme::js('vendor/particlesjs/particles.min.js?t={cache-version}') !!}
+            <script type="text/javascript">
+                /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+                $(function () {
+                    particlesJS.load('particles-js', '{!! Theme::url('vendor/particlesjs/particles.json?t={cache-version}') !!}', function() {});
+                });
+            </script>
 
             @if(Auth::user()->root_admin)
                 <script>
