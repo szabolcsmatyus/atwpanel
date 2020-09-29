@@ -51,8 +51,9 @@
     border: 1px solid transparent;
     border-radius: 4px;
     width: 100%;
-    height: 10%;
+    min-height: 10%;
     font-family: Trebuchet MS;
+    height: auto;
 }
 
 #order-btn:hover {
