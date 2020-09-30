@@ -85,7 +85,7 @@ class EggSeeder extends Seeder
             'Terraria',
             'GTA',
             'Source Engine',
-            'Rust'
+            'Rust',
         ]);
     }
 
