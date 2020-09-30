@@ -22,8 +22,11 @@
  */
 @import 'checkbox.css';
 
+.order-form {
+    text-align: center;
+}
+
 .gamelogo {
-    width: 35%;
     margin-left: 10%;
 }
 
@@ -106,8 +109,9 @@
     display: none;
     background: rgba(0, 0, 0, 0.25);
     border-radius: 3px;
-    height: 100%;
-    overflow: hidden;
+    height: auto;
+    overflow: visible;
+    min-height: 100%;
 }
 
 .login-page {
