@@ -51,8 +51,8 @@ class ActionsClass {
 
         swal({
             type: 'input',
-            title: 'Create Folder',
-            text: 'Please enter the path and folder name below.',
+            title: 'Mappa létrehozása',
+            text: 'Add meg az elérési útvonalat és nevet.',
             showCancelButton: true,
             showConfirmButton: true,
             closeOnConfirm: false,
@@ -100,8 +100,8 @@ class ActionsClass {
 
         swal({
             type: 'input',
-            title: 'Move File',
-            text: 'Please enter the new path for the file below.',
+            title: 'Áthelyezés',
+            text: 'Kérlek add meg az útvonalat.',
             showCancelButton: true,
             showConfirmButton: true,
             closeOnConfirm: false,
@@ -237,8 +237,8 @@ class ActionsClass {
 
         swal({
             type: 'input',
-            title: 'Copy File',
-            text: 'Please enter the new path for the copied file below.',
+            title: 'Másolás',
+            text: 'Kérlek add meg az útvonalat.',
             showCancelButton: true,
             showConfirmButton: true,
             closeOnConfirm: false,
@@ -300,7 +300,7 @@ class ActionsClass {
         swal({
             type: 'warning',
             title: '',
-            text: 'Are you sure you want to delete <code>' + this.sanitizedString(delName) + '</code>?',
+            text: 'Biztos törölni szeretnéd <code>' + this.sanitizedString(delName) + '</code>?',
             html: true,
             showCancelButton: true,
             showConfirmButton: true,
@@ -413,7 +413,7 @@ class ActionsClass {
             swal({
                 type: 'warning',
                 title: '',
-                text: 'Are you sure you want to delete the following files: ' + formattedItems + '?',
+                text: 'Biztos törölni szeretnéd az alábbi fájlokat: ' + formattedItems + '?',
                 html: true,
                 showCancelButton: true,
                 showConfirmButton: true,
