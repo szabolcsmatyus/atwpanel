@@ -35,8 +35,23 @@
     </head>
     <body id="particles-js" class="hold-transition login-page">
         <button id="order-btn">Szervert szeretnék!</button>
-        <div id="order-panel">
-            <button id="order-close-btn">X</button>
+        <div id="order-panel" class="conatiner">
+            <div class="row">
+                <button id="order-close-btn">Vissza</button>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col">
+                    <img class="gamelogo" src="/assets/png/csgo.png" id="csgo">
+                    <img class="gamelogo" src="/assets/png/gtav.png" id="gtav">
+                    <img class="gamelogo" src="/assets/png/rust.png" id="rust">
+                    <img class="gamelogo" src="/assets/png/minecraft.png" id="minecraft">
+                    <img class="gamelogo" src="/assets/png/ark.png" id="ark">
+                    <img class="gamelogo" src="/assets/png/conanexiles.png" id="conanexiles">
+                </div>
+                <div class="col col-lg-4">
+                    rendelés form
+                </div>
+            </div>
         </div>
         <div class="container">
             <div id="login-position-elements">
