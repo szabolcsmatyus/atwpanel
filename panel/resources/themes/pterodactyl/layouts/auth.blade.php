@@ -48,7 +48,7 @@
                     <img class="gamelogo" src="/assets/png/ark.png" id="ark">
                     <img class="gamelogo" src="/assets/png/conanexiles.png" id="conanexiles">
                 </div>
-                <div class="col col-lg-4">
+                <div class="col col-lg-4 order-form">
                     rendelés form
                 </div>
             </div>
