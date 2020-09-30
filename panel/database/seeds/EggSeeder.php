@@ -83,9 +83,9 @@ class EggSeeder extends Seeder
             'Other',
             'Voice Servers',
             'Terraria',
-            'GTA'
+            'GTA',
             'Source Engine',
-            'Rust',
+            'Rust'
         ]);
     }
 
