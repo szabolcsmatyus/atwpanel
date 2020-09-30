@@ -23,8 +23,8 @@
 @import 'checkbox.css';
 
 .gamelogo {
-    width: 40%;
-    margin-left: 5%;
+    width: 35%;
+    margin-left: 10%;
 }
 
 ::placeholder {
