@@ -40,7 +40,7 @@
                 <button id="order-close-btn">Vissza</button>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col">
+                <div class="col-lg-8">
                     <img class="gamelogo" src="/assets/png/csgo.png" id="csgo">
                     <img class="gamelogo" src="/assets/png/gtav.png" id="gtav">
                     <img class="gamelogo" src="/assets/png/rust.png" id="rust">
