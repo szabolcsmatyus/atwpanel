@@ -24,7 +24,15 @@
 
 .order-form {
     text-align: center;
-    position: fixed;
+}
+
+.gamelogos {
+    -ms-overflow-style: none;
+    scrollbar-width:none;
+}
+
+.gamelogos::-webkit-scrollbar {
+    display: none;
 }
 
 .gamelogo {

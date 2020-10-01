@@ -40,7 +40,7 @@
                 <button id="order-close-btn">Vissza</button>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-lg-8" style="overflow: auto;">
+                <div class="col-lg-8 gamelogos">
                     <img class="gamelogo" src="/assets/png/csgo.png" id="csgo">
                     <img class="gamelogo" src="/assets/png/gtav.png" id="gtav">
                     <img class="gamelogo" src="/assets/png/rust.png" id="rust">
@@ -78,13 +78,15 @@
             $(document).ready(function(){
                 $("#order-btn").click(function(){
                     $(".container").fadeToggle("slow");
-                    $("#order-btn").fadeToggle("slow");
-                    $("#order-panel").slideToggle("slow");
+                    $("#order-btn").fadeToggle("slow",function(){
+                        $("#order-panel").fadeToggle("slow");
+                    });
                 });
                 $("#order-close-btn").click(function(){
-                    $("#order-panel").slideToggle("slow");
-                    $("#order-btn").fadeToggle("slow");
-                    $(".container").fadeToggle("slow");
+                    $("#order-panel").fadeToggle("slow",function(){  
+                        $("#order-btn").fadeToggle("slow");
+                        $(".container").fadeToggle("slow");
+                    });
                 });
             });
         </script>
