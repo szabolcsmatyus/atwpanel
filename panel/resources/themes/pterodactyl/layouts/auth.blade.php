@@ -43,16 +43,16 @@
                 <form>
                     <div class="col-lg-8 gamelogos">
                         <input type="checkbox" id="csgo">
+                        <label for="csgo" class="gamelogo" style="background-image:url(/assets/png/csgo.png)" >CS:GO</label>
                         <input type="checkbox" id="gtav">
-                        <input type="checkbox" id="rust">
-                        <input type="checkbox" id="minecraft">
-                        <input type="checkbox" id="ark">
-                        <input type="checkbox" id="conanexiles">
-                        <label for="csgo" class="gamelogo" style="background-image:url(/assets/png/csgo.png)" ></label>
                         <label for="gtav" class="gamelogo" style="background-image:url(/assets/png/gtav.png)"></label>
+                        <input type="checkbox" id="rust">
                         <label for="rust" class="gamelogo" style="background-image:url(/assets/png/rust.png)"></label>
+                        <input type="checkbox" id="minecraft">
                         <label for="minecraft" class="gamelogo" class="gamelogo" style="background-image:url(/assets/png/minecraft.png)"></label>
+                        <input type="checkbox" id="ark">
                         <label for="ark" class="gamelogo" style="background-image:url(/assets/png/ark.png)"></label>
+                        <input type="checkbox" id="conanexiles">
                         <label for="conanexiles" class="gamelogo" style="background-image:url(/assets/png/conanexiles.png)"></label>
                     </div>
                     <div class="col col-lg-4 order-form">

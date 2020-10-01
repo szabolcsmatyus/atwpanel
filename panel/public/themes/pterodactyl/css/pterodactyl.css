@@ -38,16 +38,26 @@
     display: none;
 }
 
-input[type="checkbox"] {
+.gamelogo input[type="checkbox"] {
     display: none;
 }
 
-.gamelogo {
+.gamelogo input + label {
     margin-left: 15%;
     max-width: 30%;
     width: auto;
     cursor: pointer;
     display: inline-block;
+    opacity: 0.75;
+}
+
+.gamelogo input[type="checkbox"]:checked + label {
+    margin-left: 15%;
+    max-width: 30%;
+    width: auto;
+    cursor: pointer;
+    display: inline-block;
+    opacity: 1;
 }
 
 ::placeholder {
