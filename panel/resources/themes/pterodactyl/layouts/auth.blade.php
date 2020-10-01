@@ -42,7 +42,7 @@
             <div class="row justify-content-md-center">
                 <form>
                     <div class="col-lg-8 gamelogos">
-                        <img class="gamelogo" src="/assets/png/csgo.png" id="csgo" onClick="check" arg="csgocheck">
+                        <input type="image" class="gamelogo" src="/assets/png/csgo.png" id="csgo" onClick="check" arg="csgo">
                         <img class="gamelogo" src="/assets/png/gtav.png" id="gtav">
                         <img class="gamelogo" src="/assets/png/rust.png" id="rust">
                         <img class="gamelogo" src="/assets/png/minecraft.png" id="minecraft">
@@ -102,11 +102,13 @@
                 let arg = event.target.getAttribute('arg');
                 if(document.getElementById(arg+'check').checked)
                 {
-                    document.getElementById(arg).style.opacity=1.0;
+                    document.getElementById(arg+'check').checked=false;
+                    document.getElementById(arg).style.opacity=0.75;
                 }
                 else
                 {
-                    document.getElementById(arg).style.opacity=0.75;
+                    document.getElementById(arg+'check').checked=true;
+                    document.getElementById(arg).style.opacity=1.0;
                 }
             }
         </script>
