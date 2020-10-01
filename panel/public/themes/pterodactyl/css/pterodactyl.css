@@ -24,6 +24,7 @@
 
 .order-form {
     text-align: center;
+    position: fixed;
 }
 
 .gamelogo {

@@ -46,8 +46,6 @@ class NestSeeder extends Seeder
         $this->createVoiceServersNest(array_get($items, 'Voice Servers'));
         $this->createTerrariaNest(array_get($items, 'Terraria'));
         $this->createGTANest(array_get($items, 'GTA'));
-        $this->createSourceEngineNest(array_get($items, 'Source Engine'));
-        $this->createRustNest(array_get($items, 'Rust'));
     }
     /**
      * Create the Minecraft nest to be used later on.
@@ -129,38 +127,6 @@ class NestSeeder extends Seeder
             $this->creationService->handle([
                 'name' => 'Terraria',
                 'description' => 'Terraria',
-            ], 'support@pterodactyl.io');
-        }
-    }
-    /**
-     * Create the Source Engine Games nest to be used later on.
-     *
-     * @param array|null $nest
-     *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     */
-    private function createSourceEngineNest(array $nest = null)
-    {
-        if (is_null($nest)) {
-            $this->creationService->handle([
-                'name' => 'Source Engine',
-                'description' => 'Includes support for most Source Dedicated Server games.',
-            ], 'support@pterodactyl.io');
-        }
-    }
-    /**
-     * Create the Rust nest to be used later on.
-     *
-     * @param array|null $nest
-     *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     */
-    private function createRustNest(array $nest = null)
-    {
-        if (is_null($nest)) {
-            $this->creationService->handle([
-                'name' => 'Rust',
-                'description' => 'Rust - A game where you must fight to survive.',
             ], 'support@pterodactyl.io');
         }
     }

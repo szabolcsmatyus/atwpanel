@@ -78,15 +78,13 @@
             $(document).ready(function(){
                 $("#order-btn").click(function(){
                     $(".container").fadeToggle("slow");
-                    $("#order-btn").fadeToggle("slow",function(){
-                        $("#order-panel").slideToggle("slow");
-                    });
+                    $("#order-btn").fadeToggle("slow");
+                    $("#order-panel").slideToggle("slow");
                 });
                 $("#order-close-btn").click(function(){
-                    $("#order-panel").slideToggle("slow", function() {
-                        $("#order-btn").fadeToggle("slow");
-                        $(".container").fadeToggle("slow");
-                    });
+                    $("#order-panel").slideToggle("slow");
+                    $("#order-btn").fadeToggle("slow");
+                    $(".container").fadeToggle("slow");
                 });
             });
         </script>
