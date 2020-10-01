@@ -84,7 +84,7 @@
             $(document).ready(function(){
 
                 <?php
-                if ($_GET["page"]="order")
+                if ($_GET["page"]=="order")
                     echo '$("#order-btn").click();';
                 ?>
                 $("#order-btn").click(function(){
