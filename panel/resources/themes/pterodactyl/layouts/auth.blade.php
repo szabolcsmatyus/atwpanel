@@ -101,7 +101,7 @@
                 if(document.getElementById(arg+'check').checked)
                 {
                     document.getElementById(arg+'check').checked=false;
-                    document.getElementById(arg).style.opacity=0.75;
+                    document.getElementById(arg).style.opacity=0.4;
                     document.getElementById(arg).style.filter="grayscale(100%)";
                 }
                 else
