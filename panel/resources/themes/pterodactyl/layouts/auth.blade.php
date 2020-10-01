@@ -40,7 +40,6 @@
                 <button id="order-close-btn">Vissza</button>
             </div>
             <div class="row justify-content-md-center">
-                <form>
                     <div class="col-lg-8 gamelogos">
                         <input type="image" class="gamelogo" src="/assets/png/csgo.png" id="csgo" onClick="Check('csgo')">
                         <img class="gamelogo" src="/assets/png/gtav.png" id="gtav">
@@ -58,7 +57,6 @@
                     <div class="col col-lg-4 order-form">
                         rendelés form
                     </div>
-                </form>
             </div>
         </div>
         <div class="container">
@@ -99,15 +97,18 @@
             });
             function Check(arg)
             {
+                var checkid = arg.concat('check')
                 if(document.getElementById(arg+'check').checked)
                 {
                     document.getElementById(arg+'check').checked=false;
                     document.getElementById(arg).style.opacity=0.75;
+                    document.getElementById(arg).style.filter="grayscale(100%)";
                 }
                 else
                 {
                     document.getElementById(arg+'check').checked=true;
                     document.getElementById(arg).style.opacity=1.0;
+                    document.getElementById(arg).style.filter="none";
                 }
             }
         </script>

@@ -47,7 +47,15 @@ input[type="checkbox"] {
     max-width: 30%;
     width: auto;
     cursor: pointer;
-    opacity: 0.75;
+    opacity: 0.4;
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+.gamelogo:hover {
+    opacity: 1.0;
+    filter: none;
+    -webkit-filter: none;
 }
 
 ::placeholder {
