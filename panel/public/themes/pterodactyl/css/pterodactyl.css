@@ -38,10 +38,15 @@
     display: none;
 }
 
+input[type="checkbox"] {
+    display: none;
+}
+
 .gamelogo {
     margin-left: 15%;
     max-width: 30%;
     width: auto;
+    display: inline-block;
 }
 
 ::placeholder {

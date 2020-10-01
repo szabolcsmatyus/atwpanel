@@ -42,14 +42,18 @@
             <div class="row justify-content-md-center">
                 <form>
                     <div class="col-lg-8 gamelogos">
-                        <select>
-                            <input type="checkbox" class="gamelogo" style="background-image:url(/assets/png/csgo.png)" id="csgo">
-                            <input type="checkbox" class="gamelogo" style="background-image:url(/assets/png/gtav.png)" id="gtav">
-                            <input type="checkbox" class="gamelogo" style="background-image:url(/assets/png/rust.png)" id="rust">
-                            <input type="checkbox" class="gamelogo" style="background-image:url(/assets/png/minecraft.png)" id="minecraft">
-                            <input type="checkbox" class="gamelogo" style="background-image:url(/assets/png/ark.png)" id="ark">
-                            <input type="checkbox" class="gamelogo" style="background-image:url(/assets/png/conanexiles.png)" id="conanexiles">
-                        </select>
+                        <input type="checkbox" class="gamelogo" id="csgo">
+                        <input type="checkbox" class="gamelogo" id="gtav">
+                        <input type="checkbox" class="gamelogo" id="rust">
+                        <input type="checkbox" class="gamelogo" id="minecraft">
+                        <input type="checkbox" class="gamelogo" id="ark">
+                        <input type="checkbox" class="gamelogo" id="conanexiles">
+                        <label for="csgo" style="background-image:url(/assets/png/csgo.png)" ></label>
+                        <label for="gtav" style="background-image:url(/assets/png/gtav.png)"></label>
+                        <label for="rust" style="background-image:url(/assets/png/rust.png)"></label>
+                        <label for="minecraft" style="background-image:url(/assets/png/minecraft.png)"></label>
+                        <label for="ark" style="background-image:url(/assets/png/ark.png)"></label>
+                        <label for="conanexiles" style="background-image:url(/assets/png/conanexiles.png)"></label>
                     </div>
                     <div class="col col-lg-4 order-form">
                         rendelés form
