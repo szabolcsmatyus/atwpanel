@@ -42,18 +42,18 @@
             <div class="row justify-content-md-center">
                 <form>
                     <div class="col-lg-8 gamelogos">
-                        <input type="checkbox" class="gamelogo" id="csgo">
-                        <input type="checkbox" class="gamelogo" id="gtav">
-                        <input type="checkbox" class="gamelogo" id="rust">
-                        <input type="checkbox" class="gamelogo" id="minecraft">
-                        <input type="checkbox" class="gamelogo" id="ark">
-                        <input type="checkbox" class="gamelogo" id="conanexiles">
-                        <label for="csgo" style="background-image:url(/assets/png/csgo.png)" ></label>
-                        <label for="gtav" style="background-image:url(/assets/png/gtav.png)"></label>
-                        <label for="rust" style="background-image:url(/assets/png/rust.png)"></label>
-                        <label for="minecraft" style="background-image:url(/assets/png/minecraft.png)"></label>
-                        <label for="ark" style="background-image:url(/assets/png/ark.png)"></label>
-                        <label for="conanexiles" style="background-image:url(/assets/png/conanexiles.png)"></label>
+                        <input type="checkbox" id="csgo">
+                        <input type="checkbox" id="gtav">
+                        <input type="checkbox" id="rust">
+                        <input type="checkbox" id="minecraft">
+                        <input type="checkbox" id="ark">
+                        <input type="checkbox" id="conanexiles">
+                        <label for="csgo" class="gamelogo" style="background-image:url(/assets/png/csgo.png)" ></label>
+                        <label for="gtav" class="gamelogo" style="background-image:url(/assets/png/gtav.png)"></label>
+                        <label for="rust" class="gamelogo" style="background-image:url(/assets/png/rust.png)"></label>
+                        <label for="minecraft" class="gamelogo" class="gamelogo" style="background-image:url(/assets/png/minecraft.png)"></label>
+                        <label for="ark" class="gamelogo" style="background-image:url(/assets/png/ark.png)"></label>
+                        <label for="conanexiles" class="gamelogo" style="background-image:url(/assets/png/conanexiles.png)"></label>
                     </div>
                     <div class="col col-lg-4 order-form">
                         rendelés form
