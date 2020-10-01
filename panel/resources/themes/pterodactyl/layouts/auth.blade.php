@@ -34,31 +34,6 @@
         @show
     </head>
     <body id="particles-js" class="hold-transition login-page">
-        <button id="order-btn">Új szerver rendelése</button>
-        <div id="order-panel" class="conatiner">
-            <div class="row">
-                <button id="order-close-btn">Bejelentkezés</button>
-            </div>
-            <div class="row justify-content-md-center">
-                    <div class="col-lg-8 gamelogos">
-                        <img class="gamelogo" src="/assets/png/csgo.png" id="csgo" onClick="Check('csgo')">
-                        <img class="gamelogo" src="/assets/png/gtav.png" id="gtav" onClick="Check('gtav')">
-                        <img class="gamelogo" src="/assets/png/rust.png" id="rust" onClick="Check('rust')">
-                        <img class="gamelogo" src="/assets/png/minecraft.png" id="minecraft" onClick="Check('minecraft')">
-                        <img class="gamelogo" src="/assets/png/ark.png" id="ark" onClick="Check('ark')">
-                        <img class="gamelogo" src="/assets/png/conanexiles.png" id="conanexiles" onClick="Check('conanexiles')">
-                        <input type="checkbox" id="csgocheck">
-                        <input type="checkbox" id="gtavcheck">
-                        <input type="checkbox" id="rustcheck">
-                        <input type="checkbox" id="minecraftcheck">
-                        <input type="checkbox" id="arkcheck">
-                        <input type="checkbox" id="conanexilescheck">
-                    </div>
-                    <div class="col col-lg-4 order-form">
-                        rendelés form
-                    </div>
-            </div>
-        </div>
         <div class="container">
             <div id="login-position-elements">
                 <div class="login-logo">
@@ -81,35 +56,6 @@
             $(function () {
                 particlesJS.load('particles-js', '{!! Theme::url('vendor/particlesjs/particles.json?t={cache-version}') !!}', function() {});
             });
-            $(document).ready(function(){
-                $("#order-btn").click(function(){
-                    $(".container").fadeToggle("slow");
-                    $("#order-btn").fadeToggle("slow",function(){
-                        $("#order-panel").fadeToggle("slow");
-                    });
-                });
-                $("#order-close-btn").click(function(){
-                    $("#order-panel").fadeToggle("slow",function(){  
-                        $("#order-btn").fadeToggle("slow");
-                        $(".container").fadeToggle("slow");
-                    });
-                });
-            });
-            function Check(arg)
-            {
-                if(document.getElementById(arg+'check').checked)
-                {
-                    document.getElementById(arg+'check').checked=false;
-                    document.getElementById(arg).style.opacity=0.4;
-                    document.getElementById(arg).style.filter="grayscale(100%)";
-                }
-                else
-                {
-                    document.getElementById(arg+'check').checked=true;
-                    document.getElementById(arg).style.opacity=1.0;
-                    document.getElementById(arg).style.filter="none";
-                }
-            }
         </script>
     </body>
 </html>
