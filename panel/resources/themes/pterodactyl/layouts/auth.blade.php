@@ -42,18 +42,18 @@
             <div class="row justify-content-md-center">
                 <form>
                     <div class="col-lg-8 gamelogos">
-                        <input type="checkbox" id="csgo">
-                        <label for="csgo" class="gamelogo" style="background-image:url(/assets/png/csgo.png)" >CS:GO</label>
-                        <input type="checkbox" id="gtav">
-                        <label for="gtav" class="gamelogo" style="background-image:url(/assets/png/gtav.png)"></label>
-                        <input type="checkbox" id="rust">
-                        <label for="rust" class="gamelogo" style="background-image:url(/assets/png/rust.png)"></label>
-                        <input type="checkbox" id="minecraft">
-                        <label for="minecraft" class="gamelogo" class="gamelogo" style="background-image:url(/assets/png/minecraft.png)"></label>
-                        <input type="checkbox" id="ark">
-                        <label for="ark" class="gamelogo" style="background-image:url(/assets/png/ark.png)"></label>
-                        <input type="checkbox" id="conanexiles">
-                        <label for="conanexiles" class="gamelogo" style="background-image:url(/assets/png/conanexiles.png)"></label>
+                        <img class="gamelogo" src="/assets/png/csgo.png" id="csgo" onClick="check" arg="csgocheck">
+                        <img class="gamelogo" src="/assets/png/gtav.png" id="gtav">
+                        <img class="gamelogo" src="/assets/png/rust.png" id="rust">
+                        <img class="gamelogo" src="/assets/png/minecraft.png" id="minecraft">
+                        <img class="gamelogo" src="/assets/png/ark.png" id="ark">
+                        <img class="gamelogo" src="/assets/png/conanexiles.png" id="conanexiles">
+                        <input type="checkbox" id="csgocheck">
+                        <input type="checkbox" id="gtavcheck">
+                        <input type="checkbox" id="rustcheck">
+                        <input type="checkbox" id="minecraftcheck">
+                        <input type="checkbox" id="arkcheck">
+                        <input type="checkbox" id="conanexilescheck">
                     </div>
                     <div class="col col-lg-4 order-form">
                         rendelés form
@@ -97,6 +97,18 @@
                     });
                 });
             });
+            check = (event) =>
+            {
+                let arg = event.target.getAttribute('arg');
+                if(document.getElementById(arg+'check').checked)
+                {
+                    document.getElementById(arg).style.opacity=1.0;
+                }
+                else
+                {
+                    document.getElementById(arg).style.opacity=0.75;
+                }
+            }
         </script>
     </body>
 </html>
