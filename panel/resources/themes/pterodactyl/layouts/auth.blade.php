@@ -42,7 +42,7 @@
             <div class="row justify-content-md-center">
                 <form>
                     <div class="col-lg-8 gamelogos">
-                        <input type="image" class="gamelogo" src="/assets/png/csgo.png" id="csgo" onClick="check" arg="csgo">
+                        <input type="image" class="gamelogo" src="/assets/png/csgo.png" id="csgo" onClick="Check('csgo')">
                         <img class="gamelogo" src="/assets/png/gtav.png" id="gtav">
                         <img class="gamelogo" src="/assets/png/rust.png" id="rust">
                         <img class="gamelogo" src="/assets/png/minecraft.png" id="minecraft">
@@ -97,9 +97,8 @@
                     });
                 });
             });
-            check = (event) =>
+            function Check(arg)
             {
-                let arg = event.target.getAttribute('arg');
                 if(document.getElementById(arg+'check').checked)
                 {
                     document.getElementById(arg+'check').checked=false;
