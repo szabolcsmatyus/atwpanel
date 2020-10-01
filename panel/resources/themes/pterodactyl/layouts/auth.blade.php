@@ -97,7 +97,6 @@
             });
             function Check(arg)
             {
-                var checkid = arg.concat('check')
                 if(document.getElementById(arg+'check').checked)
                 {
                     document.getElementById(arg+'check').checked=false;
