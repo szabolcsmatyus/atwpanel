@@ -42,11 +42,11 @@
             <div class="row justify-content-md-center">
                     <div class="col-lg-8 gamelogos">
                         <img class="gamelogo" src="/assets/png/csgo.png" id="csgo" onClick="Check('csgo')">
-                        <img type="image"  class="gamelogo" src="/assets/png/gtav.png" id="gtav" onClick="Check('gtav')">
-                        <img type="image"  class="gamelogo" src="/assets/png/rust.png" id="rust" onClick="Check('rust')">
-                        <img type="image"  class="gamelogo" src="/assets/png/minecraft.png" id="minecraft" onClick="Check('minecraft')">
-                        <img type="image"  class="gamelogo" src="/assets/png/ark.png" id="ark" onClick="Check('ark')">
-                        <img type="image"  class="gamelogo" src="/assets/png/conanexiles.png" id="conanexiles" onClick="Check('conanexiles')">
+                        <img class="gamelogo" src="/assets/png/gtav.png" id="gtav" onClick="Check('gtav')">
+                        <img class="gamelogo" src="/assets/png/rust.png" id="rust" onClick="Check('rust')">
+                        <img class="gamelogo" src="/assets/png/minecraft.png" id="minecraft" onClick="Check('minecraft')">
+                        <img class="gamelogo" src="/assets/png/ark.png" id="ark" onClick="Check('ark')">
+                        <img class="gamelogo" src="/assets/png/conanexiles.png" id="conanexiles" onClick="Check('conanexiles')">
                         <input type="checkbox" id="csgocheck">
                         <input type="checkbox" id="gtavcheck">
                         <input type="checkbox" id="rustcheck">
