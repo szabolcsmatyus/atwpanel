@@ -82,9 +82,9 @@
                 particlesJS.load('particles-js', '{!! Theme::url('vendor/particlesjs/particles.json?t={cache-version}') !!}', function() {});
             });
             $(document).ready(function(){
-                    
+
                 <?php
-                if ($_GET="order")
+                if ($_GET["page"]="order")
                     echo '$("#order-btn").click();';
                 ?>
                 $("#order-btn").click(function(){
