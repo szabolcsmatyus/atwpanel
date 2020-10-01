@@ -24,11 +24,14 @@
 
 .order-form {
     text-align: center;
+    height: 100%;
+    overflow: hidden;
 }
 
 .gamelogos {
     -ms-overflow-style: none;
     scrollbar-width:none;
+    min-height: 100%;
 }
 
 .gamelogos::-webkit-scrollbar {
