@@ -34,10 +34,10 @@
         @show
     </head>
     <body id="particles-js" class="hold-transition login-page">
-        <button id="order-btn">Szervert szeretnék!</button>
+        <button id="order-btn">Új szerver rendelése</button>
         <div id="order-panel" class="conatiner">
             <div class="row">
-                <button id="order-close-btn">Vissza</button>
+                <button id="order-close-btn">Bejelentkezés</button>
             </div>
             <div class="row justify-content-md-center">
                     <div class="col-lg-8 gamelogos">
@@ -82,6 +82,11 @@
                 particlesJS.load('particles-js', '{!! Theme::url('vendor/particlesjs/particles.json?t={cache-version}') !!}', function() {});
             });
             $(document).ready(function(){
+                    
+                <?php
+                if ($_GET="order")
+                    echo '$("#order-btn").click();';
+                ?>
                 $("#order-btn").click(function(){
                     $(".container").fadeToggle("slow");
                     $("#order-btn").fadeToggle("slow",function(){
