@@ -55,9 +55,9 @@ class SendPasswordReset extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Reset Password')
-            ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', url('/auth/password/reset/' . $this->token . '?email=' . $notifiable->email))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->subject('Elfelejtett jelszó')
+            ->line('Azért kapta ezt az e-mailt mert jelszó visszaállítás lett kezdeményezve fiókján.')
+            ->action('Jeklszó visszaállítása ', url('/auth/password/reset/' . $this->token . '?email=' . $notifiable->email))
+            ->line('Amennyiben nem Ön kérte ezt figyelmen kívül hagyhatja ezt az e-mailt.');
     }
 }
