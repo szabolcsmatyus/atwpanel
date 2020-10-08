@@ -53,6 +53,7 @@ class RemovedFromServer extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->subject('Szerver törölve')
             ->error()
             ->greeting('Kedves ' . $this->server->user . '.')
             ->line('Az alábbi szervert el lett távolítva kezelése alól.')

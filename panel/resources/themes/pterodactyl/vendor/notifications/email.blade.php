@@ -149,8 +149,7 @@ $style = [
                                                 <tr>
                                                     <td style="{{ $fontFamily }}">
                                                         <p style="{{ $style['paragraph-sub'] }}">
-                                                            If you’re having trouble clicking the "{{ $actionText }}" button,
-                                                            copy and paste the URL below into your web browser:
+                                                            Ha nem lehet megnyomni a "{{ $actionText }}" gombot nyisd meg az alábbi linket böngésződben:
                                                         </p>
 
                                                         <p style="{{ $style['paragraph-sub'] }}">
@@ -176,8 +175,8 @@ $style = [
                                     <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}">
                                         <p style="{{ $style['paragraph-sub'] }}">
                                             &copy; {{ date('Y') }}
-                                            <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
-                                            All rights reserved.
+                                            <a style="{{ $style['anchor'] }}" href="atw.hu" target="_blank">ATW Internet Kft.</a>.
+                                            Minden jog fenttartva.
                                         </p>
                                     </td>
                                 </tr>
