@@ -23,7 +23,7 @@ return [
         'port_allocations' => 'Allocation Settings',
         'sftp_settings' => 'SFTP beállítások',
         'startup_parameters' => 'Indítási paraméterek',
-        'databases' => 'Databases',
+        'databases' => 'Adatbázisok',
         'edit_file' => 'Fájl szerkesztése',
         'admin_header' => 'ADMINISTRATIVE',
         'admin' => 'Server Configuration',

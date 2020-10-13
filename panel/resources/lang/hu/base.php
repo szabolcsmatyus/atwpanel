@@ -22,9 +22,9 @@ return [
             'desc' => 'This server has been suspended and cannot be accessed.',
         ],
         'maintenance' => [
-            'header' => 'Node Under Maintenance',
-            'title' => 'Temporarily Unavailable',
-            'desc' => 'This node is under maintenance, therefore your server can temporarily not be accessed.',
+            'header' => 'Karbantarás alatt',
+            'title' => '',
+            'desc' => 'A szerver karbantartás alatt van ezért átmenetileg nem elérhető.',
         ],
     ],
     'index' => [
