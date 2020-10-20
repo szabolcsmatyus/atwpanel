@@ -24,7 +24,7 @@
     },
     "variables": [
         {
-            "name": "Modpack Version",
+            "name": "Modpack verzió",
             "description": "",
             "env_variable": "MODPACK_VERSION",
             "default_value": "v1.2.9g-2",

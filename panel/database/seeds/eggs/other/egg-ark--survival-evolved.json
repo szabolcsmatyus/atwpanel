@@ -24,8 +24,8 @@
     },
     "variables": [
         {
-            "name": "Server Password",
-            "description": "If specified, players must provide this password to join the server.",
+            "name": "Szerver jelszó",
+            "description": "",
             "env_variable": "ARK_PASSWORD",
             "default_value": "",
             "user_viewable": 1,
@@ -33,8 +33,8 @@
             "rules": "nullable|alpha_dash|between:1,100"
         },
         {
-            "name": "Admin Password",
-            "description": "If specified, players must provide this password (via the in-game console) to gain access to administrator commands on the server.",
+            "name": "Admin jelszó",
+            "description": "",
             "env_variable": "ARK_ADMIN_PASSWORD",
             "default_value": "PleaseChangeMe",
             "user_viewable": 1,
@@ -42,8 +42,8 @@
             "rules": "nullable|alpha_dash|between:1,100"
         },
         {
-            "name": "Server Map",
-            "description": "Available Maps: TheIsland, TheCenter, Ragnarok, ScorchedEarth_P, Aberration_P, Extinction, Valguero_P, Genesis",
+            "name": "Szerver térkép",
+            "description": "Elérhető térképek: TheIsland, TheCenter, Ragnarok, ScorchedEarth_P, Aberration_P, Extinction, Valguero_P, Genesis",
             "env_variable": "SERVER_MAP",
             "default_value": "TheIsland",
             "user_viewable": 1,
@@ -52,16 +52,16 @@
         },
         {
             "name": "App ID",
-            "description": "ARK steam app id for auto updates. Leave blank to avoid auto update.",
+            "description": "ARK steam app id automatikus frissítésekhez. Amennyiben üressen hagyod nem lesznek automatikus frissítések.",
             "env_variable": "SRCDS_APPID",
             "default_value": "376030",
             "user_viewable": 1,
-            "user_editable": 0,
+            "user_editable": 1,
             "rules": "nullable|numeric"
         },
         {
-            "name": "Server Name",
-            "description": "ARK server name",
+            "name": "Szerver neve",
+            "description": "",
             "env_variable": "SESSION_NAME",
             "default_value": "A Pterodactyl Hosted ARK Server",
             "user_viewable": 1,
@@ -69,17 +69,17 @@
             "rules": "required|string|max:128"
         },
         {
-            "name": "Use Rcon",
-            "description": "Enable or disable rcon system. (true or false)\r\n\r\nDefault True for the console to work.",
+            "name": "Rcon használata",
+            "description": "Szükséges a konzol működéséhez.",
             "env_variable": "ENABLE_RCON",
             "default_value": "True",
             "user_viewable": 1,
-            "user_editable": 0,
+            "user_editable": 1,
             "rules": "required|string|in:True,False"
         },
         {
-            "name": "Rcon Port",
-            "description": "ARK rcon port used by rcon tools.",
+            "name": "Rcon port",
+            "description": "",
             "env_variable": "RCON_PORT",
             "default_value": "27020",
             "user_viewable": 1,
@@ -87,8 +87,8 @@
             "rules": "required|numeric"
         },
         {
-            "name": "Query Port",
-            "description": "ARK query port used by steam server browser and ark client server browser.",
+            "name": "Query port",
+            "description": "",
             "env_variable": "QUERY_PORT",
             "default_value": "27015",
             "user_viewable": 1,
@@ -96,8 +96,8 @@
             "rules": "required|numeric"
         },
         {
-            "name": "Auto-update server",
-            "description": "This is to enable auto-updating for servers.\r\n\r\nDefault is 0. Set to 1 to update",
+            "name": "Auto-update szerver",
+            "description": "'0'-nem, '1'-igen",
             "env_variable": "AUTO_UPDATE",
             "default_value": "0",
             "user_viewable": 1,
@@ -105,8 +105,8 @@
             "rules": "required|boolean"
         },
         {
-            "name": "Ballte Eye",
-            "description": "Enable BattleEye\r\n\r\n0 to disable\r\n1 to enable\r\n\r\ndefault=\"1\"",
+            "name": "Battle Eye",
+            "description": "Battle Eye használata '1'-igen, '0'-nem",
             "env_variable": "BATTLE_EYE",
             "default_value": "1",
             "user_viewable": 1,

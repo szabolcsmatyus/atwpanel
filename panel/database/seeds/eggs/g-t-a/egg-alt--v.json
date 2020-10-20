@@ -33,8 +33,8 @@
             "rules": "required|string|max:20"
         },
         {
-            "name": "Which alt:V build to download",
-            "description": "The supported versions are release, rc, dev (default: release).\r\n\r\nIf you don't know what you are doing leave it on stable",
+            "name": "alt:V verzió",
+            "description": "",
             "env_variable": "BUILD",
             "default_value": "release",
             "user_viewable": 1,
@@ -42,7 +42,7 @@
             "rules": "required|string|max:20"
         },
         {
-            "name": "Server Password",
+            "name": "Szerver jelszó",
             "description": "The password to join the server",
             "env_variable": "PASSWORD",
             "default_value": "ChangeMe",
@@ -51,7 +51,7 @@
             "rules": "nullable|string|min:6"
         },
         {
-            "name": "Server Description",
+            "name": "Szerver leírása",
             "description": "Description for the server.",
             "env_variable": "SERVER_DESC",
             "default_value": "A Pterodactyl Hosted Server",

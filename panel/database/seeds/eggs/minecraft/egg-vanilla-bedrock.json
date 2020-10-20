@@ -24,8 +24,8 @@
     },
     "variables": [
         {
-            "name": "Bedrock Version",
-            "description": "The version of bedrock. (Ex. 1.7.0.13)\r\n\r\nDefault version is latest.",
+            "name": "Bedrock verzió",
+            "description": "",
             "env_variable": "BEDROCK_VERSION",
             "default_value": "latest",
             "user_viewable": 1,

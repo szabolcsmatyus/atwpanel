@@ -24,8 +24,8 @@
     },
     "variables": [
         {
-            "name": "Server Name",
-            "description": "Server name that will be displayed to the master server.  (64 Char max)",
+            "name": "Szerver neve",
+            "description": "",
             "env_variable": "SERVER_NAME",
             "default_value": "RAGE:MP Unofficial server",
             "user_viewable": 1,
@@ -33,8 +33,8 @@
             "rules": "required|string|max:64"
         },
         {
-            "name": "Max Players",
-            "description": "Maximum number of players your server will hold.  (Max 100)",
+            "name": "Maximum játékosok",
+            "description": "",
             "env_variable": "MAX_PLAYERS",
             "default_value": "50",
             "user_viewable": 1,
@@ -42,8 +42,8 @@
             "rules": "required|integer|between:1,100"
         },
         {
-            "name": "Announce",
-            "description": "Announce to the master server so people can see you in their server browser.\r\n\r\nThis needs to be a 0 (false) or 1 (true) due to weird boolean parsing.",
+            "name": "Publikus elérés",
+            "description": "'0'-nem, '1'-igen",
             "env_variable": "ANNOUNCE",
             "default_value": "0",
             "user_viewable": 1,

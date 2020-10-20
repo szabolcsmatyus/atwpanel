@@ -28,13 +28,13 @@
             "description": "Name of the modpack as referenced in URL's on feed-the-beast.com\r\ni.e\r\nhttps:\/\/www.feed-the-beast.com\/projects\/<MODPACK_URL>",
             "env_variable": "MODPACK_URL",
             "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
+            "user_viewable": 0,
+            "user_editable": 0,
             "rules": "nullable|regex:([a-z-0-9]+$)"
         },
         {
-            "name": "Modpack Version",
-            "description": "Version of the modpack to use.",
+            "name": "Modpack verzió",
+            "description": "",
             "env_variable": "MODPACK_VERSION",
             "default_value": "latest",
             "user_viewable": 1,
@@ -42,8 +42,8 @@
             "rules": "required|string|max:20"
         },
         {
-            "name": "Level Seed",
-            "description": "Optional specified level seed for map generation",
+            "name": "Egyedi seed",
+            "description": "",
             "env_variable": "LEVEL_SEED",
             "default_value": "",
             "user_viewable": 1,
@@ -51,8 +51,8 @@
             "rules": "nullable|string|max:40"
         },
         {
-            "name": "Max Players",
-            "description": "Max # of players on the server",
+            "name": "Maximum játékosok",
+            "description": "",
             "env_variable": "MAX_PLAYERS",
             "default_value": "20",
             "user_viewable": 1,
@@ -60,8 +60,8 @@
             "rules": "required|integer|max:100"
         },
         {
-            "name": "Level Name",
-            "description": "Name of the world save",
+            "name": "A világ neve",
+            "description": "",
             "env_variable": "LEVEL_NAME",
             "default_value": "world",
             "user_viewable": 1,
@@ -70,9 +70,9 @@
         },
         {
             "name": "MOTD",
-            "description": "Message to appear when viewing the server in browser and on login",
+            "description": "Az üzenet ami megjelenik csatlakozáskor.",
             "env_variable": "MOTD",
-            "default_value": "A Minecraft Server",
+            "default_value": "",
             "user_viewable": 1,
             "user_editable": 1,
             "rules": "required|string|max:20"

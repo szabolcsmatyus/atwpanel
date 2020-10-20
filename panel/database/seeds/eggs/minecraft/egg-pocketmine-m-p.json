@@ -24,8 +24,8 @@
     },
     "variables": [
         {
-            "name": "PocketmineMP Version",
-            "description": "The build to pull and install. (Ex. 1604)\r\n\r\nThis is the build number on https:\/\/jenkins.pmmp.io",
+            "name": "PocketmineMP verzió",
+            "description": "",
             "env_variable": "PMMP_VERSION",
             "default_value": "latest",
             "user_viewable": 1,

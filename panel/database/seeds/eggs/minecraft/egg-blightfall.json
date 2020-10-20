@@ -24,8 +24,8 @@
     },
     "variables": [
         {
-            "name": "Modpack Version",
-            "description": "Version of the modpack to use",
+            "name": "Modpack verzió",
+            "description": "",
             "env_variable": "MODPACK_VERSION",
             "default_value": "2.1.5",
             "user_viewable": 1,

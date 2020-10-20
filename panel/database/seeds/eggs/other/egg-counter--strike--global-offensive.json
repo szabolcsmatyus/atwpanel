@@ -24,8 +24,8 @@
     },
     "variables": [
         {
-            "name": "Map",
-            "description": "The default map for the server.",
+            "name": "Térkép",
+            "description": "Alapértelmezett térkép.",
             "env_variable": "SRCDS_MAP",
             "default_value": "de_dust2",
             "user_viewable": 1,
@@ -34,7 +34,7 @@
         },
         {
             "name": "Steam Account Token",
-            "description": "The Steam Account Token required for the server to be displayed publicly.",
+            "description": "A steam account token szükséges ahoz, hogy a szerver poublikusan látható legyen.",
             "env_variable": "STEAM_ACC",
             "default_value": "",
             "user_viewable": 1,

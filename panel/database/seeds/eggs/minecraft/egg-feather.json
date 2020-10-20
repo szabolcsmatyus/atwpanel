@@ -28,8 +28,8 @@
             "description": "Do you want the installer to generate a world you you?",
             "env_variable": "GEN_WORLD",
             "default_value": "0",
-            "user_viewable": 1,
-            "user_editable": 1,
+            "user_viewable": 0,
+            "user_editable": 0,
             "rules": "required|boolean"
         }
     ]

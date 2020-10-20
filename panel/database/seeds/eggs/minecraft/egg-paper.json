@@ -24,8 +24,8 @@
     },
     "variables": [
         {
-            "name": "Minecraft Version",
-            "description": "The version of minecraft to download. \r\n\r\nLeave at latest to always get the latest version. Invalid versions will default to latest.",
+            "name": "Minecraft verzió",
+            "description": "",
             "env_variable": "MINECRAFT_VERSION",
             "default_value": "latest",
             "user_viewable": 1,
@@ -33,7 +33,7 @@
             "rules": "nullable|string|max:20"
         },
         {
-            "name": "Server Jar File",
+            "name": "Szerver jar fájl",
             "description": "The name of the server jarfile to run the server with.",
             "env_variable": "SERVER_JARFILE",
             "default_value": "server.jar",
@@ -52,7 +52,7 @@
         },
         {
             "name": "Build Number",
-            "description": "The build number for the paper release.\r\n\r\nLeave at latest to always get the latest version. Invalid versions will default to latest.",
+            "description": "",
             "env_variable": "BUILD_NUMBER",
             "default_value": "latest",
             "user_viewable": 1,
