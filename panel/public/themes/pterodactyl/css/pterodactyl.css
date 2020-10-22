@@ -583,12 +583,12 @@ label.control-label > span {
 }
 
 label.control-label > span.field-required:before {
-    content: "required";
+    content: "kötelező";
     color: #DD4B39;
 }
 
 label.control-label > span.field-optional:before {
-    content: "optional";
+    content: "nem kötelező";
     color: #BBBBBB;
 }
 

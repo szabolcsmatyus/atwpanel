@@ -87,7 +87,7 @@ class Permission extends Model implements CleansAttributes, ValidableContract
         ],
         */
         'server' => [
-            'view-allocations' => null,
+            //'view-allocations' => null,
             //'edit-allocation' => null,
             'view-startup' => null,
             'edit-startup' => null,

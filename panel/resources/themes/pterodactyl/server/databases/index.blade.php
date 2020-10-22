@@ -82,33 +82,33 @@
         <div class="col-xs-12 col-sm-4">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create New Database</h3>
+                    <h3 class="box-title">Új adatbázis létrehozása</h3>
                 </div>
                 @if($overLimit)
                     <div class="box-body">
                         <div class="alert alert-danger no-margin">
-                            You are currently using <strong>{{ count($databases) }}</strong> of your <strong>{{ $server->database_limit ?? '∞' }}</strong> allowed databases.
+                            Jelenleg <strong>{{ count($databases) }}</strong> adatbázist használsz az engedélyezett <strong>{{ $server->database_limit ?? '∞' }}</strong>-ből.
                         </div>
                     </div>
                 @else
                     <form action="{{ route('server.databases.new', $server->uuidShort) }}" method="POST">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="pDatabaseName" class="control-label">Database</label>
+                                <label for="pDatabaseName" class="control-label">Adatbázis</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">s{{ $server->id }}_</span>
                                     <input id="pDatabaseName" type="text" name="database" class="form-control" placeholder="database" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="pRemote" class="control-label">Connections</label>
+                                <label for="pRemote" class="control-label">Csatlakozás</label>
                                 <input id="pRemote" type="text" name="remote" class="form-control" value="%" />
-                                <p class="text-muted small">This should reflect the IP address that connections are allowed from. Uses standard MySQL notation. If unsure leave as <code>%</code>.</p>
+                                <p class="text-muted small">Ez az IP címeket jelöli, ahonnan engedélyezett a hozzáférés. Amennyiben nem vagy benne biztos hagyd ezen: <code>%</code>.</p>
                             </div>
                         </div>
                         <div class="box-footer">
                             {!! csrf_field() !!}
-                            <p class="text-muted small">You are currently using <strong>{{ count($databases) }}</strong> of <strong>{{ $server->database_limit ?? '∞' }}</strong> databases. A username and password for this database will be randomly generated after form submission.</p>
+                            <p class="text-muted small">Jelenleg <strong>{{ count($databases) }}</strong> adatbézist használsz az engedélyezett <strong>{{ $server->database_limit ?? '∞' }}</strong>-ből. Egy véletrenszerű felhasználónév és jelszó lesz generálva a létrehozott adatbázishoz.</p>
                             <input type="submit" class="btn btn-sm btn-success pull-right" value="Create Database" />
                         </div>
                     </form>

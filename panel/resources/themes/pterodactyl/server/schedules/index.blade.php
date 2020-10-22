@@ -25,7 +25,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">@lang('server.schedule.current')</h3>
                 <div class="box-tools">
-                    <a href="{{ route('server.schedules.new', $server->uuidShort) }}"><button class="btn btn-primary btn-sm">Create New</button></a>
+                    <a href="{{ route('server.schedules.new', $server->uuidShort) }}"><button class="btn btn-primary btn-sm">Új létrehozás</button></a>
                 </div>
             </div>
             <div class="box-body table-responsive no-padding">

@@ -86,7 +86,7 @@
                         <div class="user-panel">
                             <div class="info">
                               <p>{{ $server->name }}</p>
-                              <a href="#" id="server_status_icon"><i class="fa fa-circle text-default"></i> Checking...</a>
+                              <a href="#" id="server_status_icon"><i class="fa fa-circle text-default"></i> Betöltés...</a>
                             </div>
                         </div>
                     @endif

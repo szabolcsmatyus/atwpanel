@@ -26,7 +26,7 @@
                 <h3 class="box-title">@lang('server.users.list')</h3>
                 @can('create-subuser', $server)
                     <div class="box-tools">
-                        <a href="{{ route('server.subusers.new', $server->uuidShort) }}"><button class="btn btn-primary btn-sm">Create New</button></a>
+                        <a href="{{ route('server.subusers.new', $server->uuidShort) }}"><button class="btn btn-primary btn-sm">Új létrehozása</button></a>
                     </div>
                 @endcan
             </div>
