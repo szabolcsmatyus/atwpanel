@@ -1,0 +1,7 @@
+mysql -u root -p
+use mysql;
+CREATE USER 'nodeX'@'37.221.213.195' IDENTIFIED BY 'atwgameserver';
+GRANT ALL PRIVILEGES ON *.* TO 'nodeX'@'37.221.213.195' WITH GRANT OPTION;
+flush priviliges;
+exit
+cd /etc/mysql/

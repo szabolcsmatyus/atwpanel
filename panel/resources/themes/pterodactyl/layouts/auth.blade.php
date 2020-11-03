@@ -41,7 +41,7 @@
                 </div>
                 @yield('content')
                 <p class="small login-copyright text-center">
-                    Minden jog fenntartva. © 2003-{{ date('Y') }} <a href="https://atw.hu/" target="_blank">ATW Internet Kft.</a><br />
+                    Minden jog fenntartva. © 2003-{{ date('Y') }} <a href="https://atw.hu/" target="_blank">ATW Internet Kft.</a> Powered by <a href="https://pterodactyl.io/" target="_blank">Pterodactyl</a><br />
                 </p>
             </div>
         </div>
