@@ -41,8 +41,9 @@
                 </div>
                 @yield('content')
                 <p class="small login-copyright text-center">
-                    Minden jog fenntartva. © 2003-{{ date('Y') }} <a href="https://atw.hu/" target="_blank">ATW Internet Kft.</a> Powered by <a href="https://pterodactyl.io/" target="_blank">Pterodactyl</a><br />
+                    Minden jog fenntartva. © 2003-{{ date('Y') }} <a href="https://atw.hu/" target="_blank">ATW Internet Kft.</a> Powered by <a href="https://pterodactyl.io/" target="_blank">Pterodactyl</a><br/>
                 </p>
+                <p>Még nincs saját játékszervered? Rendelj egyet <a href="https://atw.hu/jatekszerver" target="_blank">ITT!</a></p>
             </div>
         </div>
         
