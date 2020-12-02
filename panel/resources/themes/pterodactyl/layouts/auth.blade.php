@@ -37,7 +37,7 @@
         <div class="container">
             <div id="login-position-elements">
                 <div class="login-logo">
-                    <img src="./assets/png/atw-gamepanel-login-logo.png"/>
+                    <img src="/assets/png/atw-gamepanel-login-logo.png"/>
                 </div>
                 @yield('content')
                 <p class="small login-copyright text-center">
