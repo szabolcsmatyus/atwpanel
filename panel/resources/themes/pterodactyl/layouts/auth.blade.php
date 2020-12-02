@@ -40,10 +40,10 @@
                     <img src="/assets/png/atw-gamepanel-login-logo.png"/>
                 </div>
                 @yield('content')
+                <p style="text-align: center"><b>Még nincs saját játékszervered? Rendelj egyet <a href="https://atw.hu/jatekszerver" target="_blank">ITT!</a></b></p>
                 <p class="small login-copyright text-center">
                     Minden jog fenntartva. © 2003-{{ date('Y') }} <a href="https://atw.hu/" target="_blank">ATW Internet Kft.</a> Powered by <a href="https://pterodactyl.io/" target="_blank">Pterodactyl</a><br/>
                 </p>
-                <p style="text-align: center">Még nincs saját játékszervered? Rendelj egyet <a href="https://atw.hu/jatekszerver" target="_blank">ITT!</a></p>
             </div>
         </div>
         
